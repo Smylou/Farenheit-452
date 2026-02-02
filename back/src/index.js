@@ -29,10 +29,9 @@ const app = express()
 app.use(express.json())
 
 //http://localhost:3000/
-app.get("/", (req, res) => {
-    const message = { message: "bonjour Bienvenue" }
-    res.json(message)
-})
+app.get('/', function(req, res){
+res.sendFile("C:\Users\Edouard\Documents\developpement\Farenheit-452\front\index.html");
+});
 
 app.use(adminRouter)
 app.use(userRouter)
