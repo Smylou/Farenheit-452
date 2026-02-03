@@ -3,14 +3,15 @@ import express from "express";
 import { userRouter } from "./routers/userRouter.js";
 import { adminRouter } from "./routers/adminRouter.js";
 import mongoose from "mongoose";
-//import cors from "cors";
+import { bookRouter } from "./routers/bookRouter.js";
+import cors from "cors";
 
 const port = process.env.PORT
 const databaseUrl = process.env.URL_DATABASE
 mongoose.set("strictQuery", true)
 mongoose.connect(databaseUrl)
 
-.then(() => {
+    .then(() => {
         //SUCCESS(Reussie)
         console.log("connecter a la base de données");
     })
@@ -25,16 +26,18 @@ mongoose.connect(databaseUrl)
 
 
 const app = express()
-//app.use(cors())
+app.use(cors())
 app.use(express.json())
 
 //http://localhost:3000/
-app.get('/', function(req, res){
-res.sendFile("C:\Users\Edouard\Documents\developpement\Farenheit-452\front\index.html");
-});
-
+app.get("/", (req, res) => {
+    const message = { message: "bonjour Bienvenue" }
+    res.json(message)
+})
+app.use(bookRouter)
 app.use(adminRouter)
 app.use(userRouter)
+
 
 app.listen(port, (error) => {
     if (error) {

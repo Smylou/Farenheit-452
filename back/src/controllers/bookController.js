@@ -12,9 +12,10 @@ export async function addBook(req, res) {
         res.json({ ok: false, error: error })
     }
 }
+
 export async function getAllBooks(req, res) {
     try {
-        const book = await Books.find({}, "title");
+        const book = await Books.find({}, "title author publicationDate");
         res.json(book)
     } catch (error) {
         console.error(error);
@@ -25,7 +26,7 @@ export async function getBookByTitle(req, res) {
     const title = req.params.title;
     try {
         const regex = new RegExp(title.trim().replace(/\s+/g, ".*"), "i");
-        const book = await Books.findOne({ title: { $regex: regex } })
+        const book = await Books.find({ title: { $regex: regex } })
         res.json(book)
     } catch (error) {
         console.error(error);
@@ -35,7 +36,8 @@ export async function getBookByTitle(req, res) {
 export async function getBookByAuthor(req, res) {
     const author = req.params.author;
     try {
-        const book = await Books.find({ author: author })
+        const regex = new RegExp(author.trim().replace(/\s+/g, ".*"), "i");
+        const book = await Books.find({ author: { $regex: regex } })
         res.json(book)
 
     } catch (error) {

@@ -1,31 +1,26 @@
 const bookWrapper = document.querySelector("#books")
 const formulaire = document.querySelector("#form");
-const list = document.querySelector("#listRecipes")
-const hide = document.createElement("button")
+const booksList = document.querySelector("#booksListConfirm")
 
-//ECOUTEURS EVENT
+
+
+
+
+// CREATION NOUVEAU LIVRE
 formulaire.addEventListener("submit", async (event) => {
     event.preventDefault();
     const data = new FormData(event.target);
-    await createRecipe(data.get("title"), data.get("category"))
+    await addBook(data.get("newTitle"), data.get("newAuthor"), data.get("newDate"))
 })
 
-// fct fermer marche aps encore
-list.addEventListener("click", async (event) => {
-    await display();
-    hide.textContent = "Fermer la liste"
-    bookWrapper.appendChild(hide);
-});
-hide.addEventListener("click", async (event) => {
-  
-    await display();
-});
+document.querySelector("#filterConfirm").addEventListener("click", getBookByTitle);
+document.querySelector("#filterConfirm").addEventListener("click", getBookByAuthor);
+document.querySelector("#filterConfirm").addEventListener("click", getBookByDate);
 
-
-async function createBook(titre, category) {
-    const response = await fetch("http://localhost:3000/books", {
-        method: "POST", // POST, PUT, PATCH, DELETE
-        body: JSON.stringify({ titre, category }),
+async function addBook(title, author, publicationDate) {
+    const response = await fetch("http://localhost:3000/addBook", {
+        method: "POST",
+        body: JSON.stringify({ title, author, publicationDate }),
         headers: {
             'Content-type': "application/json"
         }
@@ -33,21 +28,19 @@ async function createBook(titre, category) {
     return response;
 }
 
-async function display() {
-    const data = await getBooks();
 
-    let paragraph;
+// AFFICHE TOUS LES LIVRES (TITRE/AUTEUR/DATE PUBLICATION)
+let hide = document.createElement("button");
 
-    data.forEach((recipe) => {
-        paragraph = document.createElement("p")
-        paragraph.textContent = recipe.titre
-        bookWrapper.appendChild(paragraph);
-    });
-}
+booksList.addEventListener("click", async () => {
 
-
-async function getBooks() {
-    const response = await fetch("http://localhost:3000/recipes", {
+    const books = await getAllBooks();
+    await displayBook(books);
+    hide.textContent = "Fermer la liste"
+    bookWrapper.appendChild(hide);
+})
+async function getAllBooks() {
+    const response = await fetch("http://localhost:3000/allbooks", {
         method: "GET", // POST, PUT, PATCH, DELETE
         headers: {
             'Content-type': "application/json"
@@ -57,4 +50,68 @@ async function getBooks() {
     return data;
 }
 
+async function displayBook(data) {
 
+    let paragraph;
+
+    data.forEach((book) => {
+        paragraph = document.createElement("p");
+        let del = document.createElement("button");
+        del.textContent = "supprimer";
+        paragraph.textContent = "Titre : " + book.title + ". Auteur: " + book.author + ". Date de publication : " + book.publicationDate + " "
+        bookWrapper.appendChild(paragraph);
+        paragraph.appendChild(del);
+        hide.textContent = "Fermer la liste"
+        bookWrapper.appendChild(hide);
+    });
+    hide.addEventListener("click", () => {
+        bookWrapper.textContent = ""
+
+    });
+}
+
+//AFFICHE RECHERCHE PAR RAPPORT AU FILTRE TITRE
+async function getBookByTitle() {
+    const inputTitleSearch = document.querySelector("#titleSearch")
+    let titleSearch = inputTitleSearch.value
+
+
+    const response = await fetch("http://localhost:3000/book/title/" + titleSearch, {
+        method: "GET",
+        headers: {
+            'Content-type': "application/json"
+        }
+    });
+    const books = await response.json();
+    displayBook(books);
+}
+
+
+
+async function getBookByAuthor() {
+    const inputAuthorSearch = document.querySelector("#authorSearch")
+    let authorSearch = inputAuthorSearch.value
+    const response = await fetch("http://localhost:3000/book/author/" + authorSearch, {
+        method: "GET",
+        headers: {
+            'Content-type': "application/json"
+        }
+    });
+
+    const books = await response.json();
+    displayBook(books);
+}
+
+async function getBookByDate() {
+    const inputDateSearch = document.querySelector("#dateSearch")
+    let dateSearch = inputDateSearch.value
+    const response = await fetch("http://localhost:3000/book/publicDate/" + dateSearch, {
+        method: "GET",
+        headers: {
+            'Content-type': "application/json"
+        }
+    });
+
+    const books = await response.json();
+    displayBook(books);
+}

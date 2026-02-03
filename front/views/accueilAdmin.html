@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil Admin</title>
+</head>
+
+<body>
+    <header></header>
+    <main>
+        <h1>Fonction Admins :</h1>
+        <section id="addBook">
+            <p>ajouter un livre : </p>
+            <form action="" id="form">
+                <input name="newTitle" id="newTitle" placeholder="Titre du livre a ajouter..." type="text">
+                <br>
+                <input type="text" name="newAuthor" id="newAuthor" placeholder="Auteur à ajouter...">
+                <br>
+                <input type="text" name="newDate" id="newDate" placeholder="date de publication...">
+                <br>
+                <button name="addConfirm" id="addConfirm">Confirmer l'enregistrement</button>
+            </form>
+        </section>
+
+        <p>Faire une recherche par filtre : </p>
+        <section name="filterSearch" id="filterSearch">
+            <input name="titleSearch" id="titleSearch" placeholder="Titre recherché" type="text">
+            <br>
+            <input name="authorSearch" id="authorSearch" placeholder="Auteur recherché" type="text">
+            <br>
+            <input name="dateSearch" id="dateSearch" placeholder="Année de publication recherchée..." type="text">
+            <br>
+            <button name="filterConfirm" id="filterConfirm">Confimer les filtres de recherche</button>
+            <br>
+            <button name="availableSearch" id="availableSearch">Afficher les livres diponible maintenant</button>
+            <br>
+            <button name="booksListConfirm" id="booksListConfirm">liste de tous les livres</button>
+        </section>
+
+
+
+
+
+        <div id="books"></div>
+    </main>
+
+
+    <footer></footer>
+    <script src="../script.js"></script>
+</body>
+
+</html>

@@ -10,7 +10,7 @@ const bookSchema = mongoose.Schema({
         required: [true, "le nom de l'auteur est obligatoire"]
     },
     publicationDate: {
-        type: String,
+        type: Number,
         required: [true, "la date de parution est obligatoire"]
     },
     available: {
