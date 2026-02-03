@@ -4,28 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Accueil</title>
 </head>
 
 <body>
     <h1>Liste des livres</h1>
     <section>
-        <form action="" id="form">
-            <h2>ajouter des livres : </h2>
+        <form action="connect" id="form">
+            <h2>Avez vous un compte ?</h2>
             <div>
-                <label for="title">Titre</label>
-                <input type="text" name="title" id="title">
+                <label for="Mail">Mail : </label>
+                <input type="text" name="Mail" id="Mail">
             </div>
             <div>
-                <label for="category">Categorie</label>
-                <input type="text" name="category" id="category">
+                <label for="pwd">Mot de passe : </label>
+                <input type="text" name="pwd" id="pwd">
             </div>
             <button>Envoyer</button>
-            <br>
-            <button name="listBooks" id="listBooks">voir la liste compléte des livres</button>
+            <a href="views/register.html">S'inscrire</a>
         </form>
     </section>
-    <div id="books"></div>
     <script src="./script.js"></script>
 </body>
 
