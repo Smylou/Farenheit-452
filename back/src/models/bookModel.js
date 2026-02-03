@@ -1,18 +1,22 @@
 import mongoose from "mongoose";
 
 const bookSchema = mongoose.Schema({
-    nom: {
+    title: {
         type: String,
         required: [true, "le nom du livre est obligatoire"]
     },
-    Auteur: {
+    author: {
         type: String,
         required: [true, "le nom de l'auteur est obligatoire"]
     },
     publicationDate: {
-        type: Date,
+        type: String,
         required: [true, "la date de parution est obligatoire"]
     },
+    available: {
+        type: Boolean, default: true
+        // si false alors PAS DISPO
+    }
 
 })
 
