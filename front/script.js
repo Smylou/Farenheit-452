@@ -1,7 +1,7 @@
 const bookWrapper = document.querySelector("#books")
 const formulaire = document.querySelector("#form");
 const booksList = document.querySelector("#booksListConfirm")
-
+const formulaireRegister = document.querySelector("#formRegister");
 
 
 
@@ -114,4 +114,21 @@ async function getBookByDate() {
 
     const books = await response.json();
     displayBook(books);
+}
+
+formulaireRegister.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const data = new FormData(event.target);
+    await addUser(data.get("mail"), data.get("prenom"), data.get("nom"), data.get("pwd"))
+})
+
+async function addUser(mail, prenom, nom, pwd) {
+    const response = await fetch("http://localhost:3000/register", {
+        method: "POST",
+        body: JSON.stringify({ mail, prenom, nom, pwd }),
+        headers: {
+            'Content-type': "application/json"
+        }
+    });
+    return response;
 }
