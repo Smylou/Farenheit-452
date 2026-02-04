@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Connexion</title>
+    <link rel="stylesheet" href="/front/css/login.css">
+</head>
+
+<body class="login-page">
+    <div class="container">
+        <h2>Connexion</h2>
+        <form action="/app">
+            <input type="email" name="login_mail" placeholder="Email" required>
+
+            <div class="field" style="position:relative; display:flex; align-items:center; margin-top:10px;">
+                <input type="password" name="login_pass" placeholder="Mot de passe" style="width:100%;">
+                <button type="button" class="btn-toggle"><img src="/front/images/visibility-off.svg"
+                        alt="Masquer"></button>
+            </div>
+
+            <button class="btn-edit" id="btn-login">Se connecter</button>
+        </form>
+        <div class="footer-links" style="text-align:center; margin-top:20px;">
+            Nouveau ici ? <a href="/front/views/register.html">Créer un compte</a>
+        </div>
+    </div>
+    <script src="/front-end/js/login.js"></script>
+</body>
+
+</html>

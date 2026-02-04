@@ -1,23 +1,10 @@
 import mongoose from "mongoose";
 
 const bookSchema = mongoose.Schema({
-    title: {
-        type: String,
-        required: [true, "le nom du livre est obligatoire"]
-    },
-    author: {
-        type: String,
-        required: [true, "le nom de l'auteur est obligatoire"]
-    },
-    publicationDate: {
-        type: Number,
-        required: [true, "la date de parution est obligatoire"]
-    },
-    available: {
-        type: Boolean, default: true
-        // si false alors PAS DISPO
-    }
+    title: { type: String, required: true },
+    author: { type: String, required: true },
+    publicationDate: { type: Number, required: true },
+    available: { type: Boolean, default: true }
+});
 
-})
-
-export const Books = mongoose.model("books", bookSchema)
+export default mongoose.model("Book", bookSchema);

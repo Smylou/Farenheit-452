@@ -4,35 +4,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/front/css/register.css">
     <title>S'enregistrer</title>
 </head>
 
-<body>
-    <h1>Liste des livres</h1>
-    <section>
-        <form action="" method="" id="formRegister">
+<body class="signup-page">
+    <section class="container">
+        <form  id="formRegister">
             <h2>Enregistrez vous</h2>
             <div>
-                <label for="mail">Mail : </label>
-                <input type="text" name="mail" id="mail">
+                <input type="text" name="mail" id="mail" placeholder="Email" required>
             </div>
             <div>
-                <label for="prenom">Prénom : </label>
-                <input type="text" name="prenom" id="prenom">
+                <input type="text" name="prenom" id="prenom" placeholder="Prénom" required>
             </div>
             <div>
-                <label for="nom">Nom : </label>
-                <input type="text" name="nom" id="nom">
+                <input type="text" name="nom" id="nom"  placeholder="Nom" required>
             </div>
             <div>
-                <label for="pwd">Mot de passe : </label>
-                <input type="text" name="pwd" id="pwd">
+                <input type="password" id="pwd" name="pwd" placeholder="Mot de Passe" required>
             </div>
-            <button>Envoyer</button>
+            <button type="submit" class="btn-add">Envoyer</button>
         </form>
+        
+    <div class="footer-links" style="text-align:center; margin-top:20px;">
+      <a href="/front/views/login.html">Déjà un compte ? Connectez-vous</a><br>
+      <a href="/front/index.html">Retour à l'accueil</a>
+    </div>
     </section>
 
-    <script src="../script.js"></script>
+    <script src="/front/js/script.js"></script>
 </body>
 
 </html>

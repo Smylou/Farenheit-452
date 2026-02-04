@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Salles - KaraPasOK</title>
+    <link rel="stylesheet" href="/front-end/css/app.css">
+</head>
+
+<body>
+    <header>
+        <h1>KaraPasOK</h1>
+        <div class="user-controls">
+            <span id="user-info">Chargement du profil...</span>
+            <button id="btn-logout">Déconnexion</button>
+        </div>
+    </header>
+
+    <main>
+        <section id="create-section" style="display: none;">
+            <h2>Créer une nouvelle salle</h2>
+            <form id="form-create-salle">
+                <div class="input-group">
+                    <input type="text" id="name" placeholder="Nom de la salle" required>
+                </div>
+                <div class="input-group">
+                    <input type="number" id="capacity" placeholder="Capacité (pers.)" required>
+                </div>
+                <div class="input-group full-width">
+                    <textarea id="description" placeholder="Description de la salle (équipement, ambiance...)" rows="3"></textarea>
+                </div>
+                <div class="input-group full-width">
+                    <input type="number" id="pricePerDay" placeholder="Prix par jour (€)" required>
+                </div>
+                <button type="submit" class="btn-submit">Ajouter la salle</button>
+            </form>
+        </section>
+
+        <section class="rooms-container">
+            <h2>Salles disponibles</h2>
+            <div id="salles-list">
+                </div>
+        </section>
+    </main>
+
+    <script src="/front-end/js/app.js"></script>
+</body>
+
+</html>
