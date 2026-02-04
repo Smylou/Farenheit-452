@@ -1,9 +1,3 @@
-/* ===================================
-   APP.CSS - KaraPasOK
-   CSS Pur - Aucun JavaScript requis
-   =================================== */
-
-/* === VARIABLES CSS === */
 :root {
     /* Couleurs principales */
     --primary: #4f46e5;
@@ -118,8 +112,31 @@ main {
     margin: 0 auto;
 }
 
-/* === SECTION DE CRÉATION === */
+/* === SECTION ADMIN === */
 #create-section {
+    background-color: var(--bg-card);
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+    margin-bottom: var(--spacing-2xl);
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--primary);
+}
+
+#create-section h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-sm);
+}
+
+#create-section p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+/* === SECTION AJOUT DE LIVRE === */
+#addBook {
     background-color: var(--bg-card);
     padding: var(--spacing-xl);
     border-radius: var(--border-radius);
@@ -128,7 +145,7 @@ main {
     border: 1px solid var(--border-color);
 }
 
-#create-section h2 {
+#addBook h3 {
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--text-primary);
@@ -138,22 +155,15 @@ main {
     display: inline-block;
 }
 
-/* === FORMULAIRE === */
-#form-create-salle {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-lg);
+/* === FORMULAIRE D'AJOUT === */
+#form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
     margin-top: var(--spacing-lg);
 }
 
-.input-group {
-    display: flex;
-    flex-direction: column;
-}
-
-/* Inputs et Textarea */
-input,
-textarea {
+#form input {
     width: 100%;
     padding: var(--spacing-sm) var(--spacing-md);
     border: 2px solid var(--border-color);
@@ -165,79 +175,114 @@ textarea {
     transition: all 0.2s ease;
 }
 
-input:focus,
-textarea:focus {
+#form input:focus {
     outline: none;
     border-color: var(--primary);
     background-color: white;
     box-shadow: 0 0 0 4px var(--primary-light);
 }
 
-input::placeholder,
-textarea::placeholder {
+#form input::placeholder {
     color: var(--text-muted);
 }
 
 /* Nombre inputs */
-input[type="number"] {
+#form input[type="number"] {
     appearance: textfield;
 }
 
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
+#form input[type="number"]::-webkit-inner-spin-button,
+#form input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
-/* Textarea */
-textarea {
-    resize: vertical;
-    min-height: 80px;
-    line-height: 1.5;
-}
-
-/* Bouton Submit - Prend toute la largeur */
-#form-create-salle button[type="submit"] {
-    grid-column: span 2;
-    background-color: var(--primary);
-    color: white;
-    padding: var(--spacing-md) var(--spacing-xl);
-    border: none;
-    border-radius: var(--border-radius-sm);
-    font-weight: 600;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    margin-top: var(--spacing-sm);
-}
-
-#form-create-salle button[type="submit"]:hover {
-    background-color: var(--primary-hover);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
-}
-
-#form-create-salle button[type="submit"]:active {
-    transform: translateY(0);
-}
-
-/* === SECTION DES SALLES === */
-.rooms-container h2 {
+/* === SECTION RECHERCHE === */
+main > h3 {
     font-size: 1.75rem;
     font-weight: 700;
     color: var(--text-primary);
-    margin-bottom: var(--spacing-xl);
+    margin-bottom: var(--spacing-lg);
 }
 
-/* Liste des salles en grille */
-#salles-list {
+#filterSearch {
+    background-color: var(--bg-card);
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+    margin-bottom: var(--spacing-2xl);
+    border: 1px solid var(--border-color);
+}
+
+#filterSearch input {
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    background-color: #f8fafc;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    transition: all 0.2s ease;
+    margin-bottom: var(--spacing-md);
+
+}
+
+#filterSearch input:focus {
+    outline: none;
+    border-color: var(--primary);
+    background-color: white;
+    box-shadow: 0 0 0 4px var(--primary-light);
+}
+
+#filterSearch input::placeholder {
+    color: var(--text-muted);
+}
+
+#filterSearch input[type="number"] {
+    appearance: textfield;
+}
+
+
+/* === BOUTONS === */
+.btn-toggle {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: var(--border-radius-sm);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+    margin-bottom: var(--spacing-sm);
+}
+
+.btn-toggle:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-toggle:active {
+    transform: translateY(0);
+}
+
+#addConfirm {
+    margin-top: var(--spacing-sm);
+}
+
+/* === SECTION DES LIVRES === */
+#books {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: var(--spacing-xl);
+    margin-top: var(--spacing-2xl);
 }
 
-/* Message "Aucune salle" ou "Chargement" */
-#salles-list > p {
+/* Message "Aucun livre" ou "Chargement" */
+#books > p {
     grid-column: 1 / -1;
     text-align: center;
     color: var(--text-secondary);
@@ -245,17 +290,8 @@ textarea {
     padding: var(--spacing-2xl);
 }
 
-/* === CARTES DE SALLES === */
-/* Structure attendue du JS:
-   <div class="salle-card">
-     <h3>Nom</h3>
-     <p>Capacité: X personnes</p>
-     <p>Prix: X€/jour</p>
-     <p>Description</p>
-   </div>
-*/
-
-#salles-list > div {
+/* === CARTES DE LIVRES === */
+#books > div {
     background-color: var(--bg-card);
     padding: var(--spacing-lg);
     border-radius: var(--border-radius);
@@ -267,7 +303,7 @@ textarea {
 }
 
 /* Barre colorée en haut */
-#salles-list > div::before {
+#books > div::before {
     content: '';
     position: absolute;
     top: 0;
@@ -280,18 +316,19 @@ textarea {
     transition: transform 0.3s ease;
 }
 
-#salles-list > div:hover {
+#books > div:hover {
     transform: translateY(-8px);
     box-shadow: var(--shadow-lg);
     border-color: var(--primary);
 }
 
-#salles-list > div:hover::before {
+#books > div:hover::before {
     transform: scaleX(1);
 }
 
-/* Titre de la carte (h3) */
-#salles-list > div h3 {
+/* Titre de la carte */
+#books > div h3,
+#books > div h4 {
     font-size: 1.25rem;
     font-weight: 700;
     color: var(--primary);
@@ -299,16 +336,37 @@ textarea {
 }
 
 /* Paragraphes de la carte */
-#salles-list > div p {
+#books > div p {
     color: var(--text-secondary);
     font-size: 0.95rem;
     line-height: 1.6;
     margin: var(--spacing-xs) 0;
 }
 
-/* Masquer les <hr> si le JS en ajoute */
-#salles-list hr {
-    display: none;
+/* Badge de disponibilité */
+#books > div .availability-badge {
+    display: inline-block;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: var(--spacing-sm);
+}
+
+#books > div .available {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: var(--success);
+}
+
+#books > div .unavailable {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: var(--danger);
+}
+
+/* Boutons dans les cartes */
+#books > div button {
+    margin-top: var(--spacing-md);
+    width: 100%;
 }
 
 /* === RESPONSIVE === */
@@ -331,20 +389,13 @@ textarea {
         padding: var(--spacing-lg) 3%;
     }
     
-    #create-section {
+    #create-section,
+    #addBook,
+    #filterSearch {
         padding: var(--spacing-lg);
     }
     
-    #form-create-salle {
-        grid-template-columns: 1fr;
-        gap: var(--spacing-md);
-    }
-    
-    #form-create-salle button[type="submit"] {
-        grid-column: span 1;
-    }
-    
-    #salles-list {
+    #books {
         grid-template-columns: 1fr;
         gap: var(--spacing-lg);
     }
@@ -369,26 +420,24 @@ textarea {
         padding: var(--spacing-md) 3%;
     }
     
-    #create-section {
+    #create-section,
+    #addBook,
+    #filterSearch {
         padding: var(--spacing-md);
     }
     
-    #create-section h2 {
+    #create-section h2,
+    #addBook h3,
+    main > h3 {
         font-size: 1.25rem;
     }
     
-    .rooms-container h2 {
-        font-size: 1.4rem;
-    }
-    
-    #salles-list {
+    #books {
         gap: var(--spacing-md);
     }
 }
 
-/* === ÉTATS POUR JS (OPTIONNEL) === */
-
-/* Si le JS ajoute ces classes, elles fonctionneront */
+/* === ÉTATS POUR JS === */
 .loading {
     opacity: 0.6;
     pointer-events: none;
@@ -406,13 +455,20 @@ button:disabled {
 }
 
 /* === UTILITAIRE === */
-
-/* Masquer un élément */
 .hidden {
     display: none !important;
 }
 
-/* Centrer du texte */
 .text-center {
     text-align: center;
+}
+
+/* Supprimer les marges des <br> */
+br {
+    display: none;
+}
+
+#form > *:not(:last-child),
+#filterSearch > *:not(:last-child) {
+    margin-bottom: 0;
 }

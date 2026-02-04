@@ -31,28 +31,30 @@
             <form action="#" id="form">
                 <input name="newTitle" id="newTitle" placeholder="Titre du livre à ajouter..." type="text" required>
                 <br>
-                <input type="text" name="newAuthor" id="newAuthor" placeholder="Auteur à ajouter..." required>
+                <input type="text"  name="newAuthor" id="newAuthor" placeholder="Auteur à ajouter..." required>
                 <br>
                 <input type="number" name="newDate" id="newDate" placeholder="Année de publication..." required min="1000" max="2100">
                 <br>
-                <button type="submit" name="addConfirm" id="addConfirm">Confirmer l'enregistrement</button>
+                <button type="submit" class="btn-toggle" name="addConfirm" id="addConfirm">Confirmer l'enregistrement</button>
             </form>
         </section>
 
-        <h3>Rechercher des livres</h3>
+        
         <section name="filterSearch" id="filterSearch">
+            <h3>Rechercher des livres</h3>
+            <div id="form">
             <input name="titleSearch" id="titleSearch" placeholder="Titre recherché" type="text">
             <br>
             <input name="authorSearch" id="authorSearch" placeholder="Auteur recherché" type="text">
             <br>
-            
             <input name="dateSearch" id="dateSearch" placeholder="Année de publication recherchée..." type="number" min="1000" max="2100">
             <br>
-            <button name="filterConfirm" id="filterConfirm">Confirmer les filtres de recherche</button>
+            <button name="filterConfirm" class="btn-toggle" id="filterConfirm">Confirmer les filtres de recherche</button>
             <br>
-            <button name="availableSearch" id="availableSearch">Afficher les livres disponibles maintenant</button>
+            <button name="availableSearch" class="btn-toggle" id="availableSearch">Afficher les livres disponibles maintenant</button>
             <br>
-            <button name="booksListConfirm" id="booksListConfirm">Liste de tous les livres</button>
+            <button name="booksListConfirm" class="btn-toggle" id="booksListConfirm">Liste de tous les livres</button>
+        </div>
         </section>
         
        
@@ -61,7 +63,6 @@
 
     
     <script src="../js/script.js"></script>
-    <script src="../js/app.js"></script>
 </body>
 
 </html>
