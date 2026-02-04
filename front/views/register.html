@@ -6,33 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>S'enregistrer</title>
 </head>
-
 <body>
-    <h1>Liste des livres</h1>
     <section>
-        <form action="" method="" id="formRegister">
-            <h2>Enregistrez vous</h2>
+        <form id="registerForm">
+            <h2>Enregistrez-vous</h2>
+            
             <div>
-                <label for="mail">Mail : </label>
-                <input type="text" name="mail" id="mail">
+                <label for="lastName">Nom : </label>
+                <input type="text" name="lastName" id="lastName" placeholder="Nom" required>
             </div>
             <div>
-                <label for="prenom">Prénom : </label>
-                <input type="text" name="prenom" id="prenom">
+            <div>
+                <label for="firstName">Prénom : </label>
+                <input type="text" name="firstName" id="firstName" placeholder="Prénom" required>
+            </div>
+            
+                <label for="email">Email : </label>
+                <input type="email" name="email" id="email" placeholder="Email" required>
             </div>
             <div>
-                <label for="nom">Nom : </label>
-                <input type="text" name="nom" id="nom">
+                <label for="passord">Mot de passe : </label>
+                <input type="password" name="password" id="password" placeholder="Mot de passe"required> 
             </div>
-            <div>
-                <label for="pwd">Mot de passe : </label>
-                <input type="text" name="pwd" id="pwd">
-            </div>
-            <button>Envoyer</button>
+            <button type="submit" class="btn-add">Envoyer</button>
         </form>
+
+        <p id="message"></p>
+
     </section>
 
-    <script src="../script.js"></script>
+
+    <script src="../register.js"></script>
 </body>
 
 </html>

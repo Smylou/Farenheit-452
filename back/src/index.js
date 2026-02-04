@@ -1,14 +1,20 @@
 import "dotenv/config";
 import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
+
 import { userRouter } from "./routers/userRouter.js";
 import { adminRouter } from "./routers/adminRouter.js";
-import mongoose from "mongoose";
 import { bookRouter } from "./routers/bookRouter.js";
 
-import cors from "cors";
+const app = express();
+
+app.use(cors());
+app.use(express.json());
 
 const port = process.env.PORT
 const databaseUrl = process.env.URL_DATABASE
+
 mongoose.set("strictQuery", true)
 mongoose.connect(databaseUrl)
 
@@ -25,11 +31,6 @@ mongoose.connect(databaseUrl)
 
     })
 
-
-const app = express()
-app.use(cors())
-app.use(express.json())
-
 //http://localhost:3000/
 app.get("/", (req, res) => {
     const message = { message: "bonjour Bienvenue" }
@@ -45,7 +46,7 @@ app.listen(port, (error) => {
         console.error(error);
 
     } else {
-        console.log("le serveur a bien demarrer");
+        console.log("le serveur a bien demarré");
 
     }
 })

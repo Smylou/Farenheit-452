@@ -1,21 +1,18 @@
 const bookWrapper = document.querySelector("#books")
 const formulaire = document.querySelector("#form");
 const booksList = document.querySelector("#booksListConfirm")
-const formulaireRegister = document.querySelector("#formRegister");
-
-
-
+const formulaireRegister = document.querySelector("#registerForm");
 
 // CREATION NOUVEAU LIVRE
-formulaire.addEventListener("submit", async (event) => {
+formulaire?.addEventListener("submit", async (event) => {
     event.preventDefault();
     const data = new FormData(event.target);
     await addBook(data.get("newTitle"), data.get("newAuthor"), data.get("newDate"))
 })
 
-document.querySelector("#filterConfirm").addEventListener("click", getBookByTitle);
-document.querySelector("#filterConfirm").addEventListener("click", getBookByAuthor);
-document.querySelector("#filterConfirm").addEventListener("click", getBookByDate);
+document.querySelector("#filterConfirm")?.addEventListener("click", getBookByTitle);
+document.querySelector("#filterConfirm")?.addEventListener("click", getBookByAuthor);
+document.querySelector("#filterConfirm")?.addEventListener("click", getBookByDate);
 
 async function addBook(title, author, publicationDate) {
     const response = await fetch("http://localhost:3000/addBook", {
@@ -32,7 +29,7 @@ async function addBook(title, author, publicationDate) {
 // AFFICHE TOUS LES LIVRES (TITRE/AUTEUR/DATE PUBLICATION)
 let hide = document.createElement("button");
 
-booksList.addEventListener("click", async () => {
+booksList?.addEventListener("click", async () => {
 
     const books = await getAllBooks();
     await displayBook(books);
@@ -114,21 +111,4 @@ async function getBookByDate() {
 
     const books = await response.json();
     displayBook(books);
-}
-
-formulaireRegister.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    const data = new FormData(event.target);
-    await addUser(data.get("mail"), data.get("prenom"), data.get("nom"), data.get("pwd"))
-})
-
-async function addUser(mail, prenom, nom, pwd) {
-    const response = await fetch("http://localhost:3000/register", {
-        method: "POST",
-        body: JSON.stringify({ mail, prenom, nom, pwd }),
-        headers: {
-            'Content-type': "application/json"
-        }
-    });
-    return response;
 }
