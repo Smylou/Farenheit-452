@@ -10,14 +10,14 @@ class LoginController {
 
         try {
           
-            const user = await User.findOne({ mail: login_mail });
+            const user = await User.findOne({ email: login_mail });
             
             if (!user) {
                 return res.status(401).json({ message: "Email ou mot de passe incorrect" });
             }
 
             
-            const isPasswordValid = await bcrypt.compare(login_pass, user.pwd);
+            const isPasswordValid = await bcrypt.compare(login_pass, user.password);
             
             if (!isPasswordValid) {
                 return res.status(401).json({ message: "Email ou mot de passe incorrect" });
@@ -35,9 +35,9 @@ class LoginController {
                 user: {
                     id: user._id,
                     
-                    prenom: user.prenom, 
-                    nom: user.nom, 
-                    mail: user.mail,
+                    firstName: user.firstName, 
+                    lastName: user.lastName, 
+                    email: user.email,
                     role: user.role
                 }
             });

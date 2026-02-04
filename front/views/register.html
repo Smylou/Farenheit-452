@@ -4,36 +4,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/front/css/register.css">
+    <link rel="stylesheet" href="../css/register.css">
     <title>S'enregistrer</title>
 </head>
 
 <body class="signup-page">
     <section class="container">
-        <form id="formRegister">
+        <form id="registerForm">
             <h2>Enregistrez-vous</h2>
             <div>
-                <input type="email" name="mail" id="mail" placeholder="Email" required>
+                <input type="email" name="email" id="email" placeholder="Email" required>
             </div>
             <div>
-                <input type="text" name="prenom" id="prenom" placeholder="Prénom" required minlength="2" maxlength="50">
+                <input type="text" name="firstName" id="firstName" placeholder="Prénom" required minlength="2" maxlength="50">
             </div>
             <div>
-                <input type="text" name="nom" id="nom" placeholder="Nom" required minlength="2" maxlength="50">
+                <input type="text" name="lastName" id="lastName" placeholder="Nom" required minlength="2" maxlength="50">
             </div>
             <div>
-                <input type="password" id="pwd" name="pwd" placeholder="Mot de Passe (8 caractères min)" required minlength="8">
+                <input type="password" id="password" name="password" placeholder="Mot de Passe (8 caractères min)" required minlength="8">
             </div>
             <button type="submit" class="btn-add">Envoyer</button>
+            <p id="message"></p>
         </form>
         
         <div class="footer-links" style="text-align:center; margin-top:20px;">
-            <a href="/front/views/login.html">Déjà un compte ? Connectez-vous</a><br>
-            <a href="/front/index.html">Retour à l'accueil</a>
+            <a href="../views/login.html">Déjà un compte ? Connectez-vous</a><br>
+            <a href="../views/index.html">Retour à l'accueil</a>
         </div>
     </section>
 
-    <script src="/front/js/register.js"></script>
+    <script src="../../front/js/register.js"></script>
 </body>
 
 </html>

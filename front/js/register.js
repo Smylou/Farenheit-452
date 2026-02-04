@@ -5,7 +5,7 @@ console.log("✓ Fichier register.js chargé");
 window.addEventListener('DOMContentLoaded', function() {
     console.log("✓ DOM chargé");
     
-    const formulaireRegister = document.querySelector("#formRegister");
+    const formulaireRegister = document.querySelector("#registerForm");
 
     if (formulaireRegister) {
         formulaireRegister.addEventListener("submit", async (event) => {
@@ -13,17 +13,17 @@ window.addEventListener('DOMContentLoaded', function() {
             const data = new FormData(event.target);
 
             const result = await addUser(
-                data.get("mail"),
-                data.get("prenom"),
-                data.get("nom"),
-                data.get("pwd")
+                data.get("email"),
+                data.get("firstName"),
+                data.get("lastName"),
+                data.get("password")
             );
 
             // Redirection après inscription réussie
             if (result && result.success) {
                 alert("Inscription réussie ! Vous allez être redirigé vers la page de connexion.");
                 setTimeout(() => {
-                    window.location.href = "/front/views/login.html";
+                    window.location.href = "../views/login.html";
                 }, 1000);
             }
         });
@@ -52,7 +52,12 @@ async function addUser(mail, prenom, nom, pwd) {
 
         const response = await fetch(`${API_URL}/register`, {
             method: "POST",
-            body: JSON.stringify({ mail, prenom, nom, pwd }),
+            body: JSON.stringify({ 
+                email: mail, 
+                firstName: prenom, 
+                lastName: nom, 
+                password: pwd 
+            }),
             headers: {
                 'Content-type': "application/json"
             }
