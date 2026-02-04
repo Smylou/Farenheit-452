@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des livres</title>
+
+    <link rel="stylesheet" href="/front/css/app.css">
+</head>
+
+<body>
+    <header>
+        <h1>Farenheit-452</h1>
+        <div class="user-controls">
+            <span id="user-info">Chargement du profil...</span>
+            <button id="btn-logout">Déconnexion</button>
+        </div>
+    </header>
+
+    <main>
+       
+        <section id="create-section" style="display: none;">
+            <h2>Section Admin - Gestion avancée</h2>
+            <p>Vous êtes administrateur. Vous avez accès à toutes les fonctionnalités.</p>
+        </section>
+
+        
+        <section id="addBook">
+            <h3>Ajouter un livre</h3>
+            <form action="#" id="form">
+                <input name="newTitle" id="newTitle" placeholder="Titre du livre à ajouter..." type="text" required>
+                <br>
+                <input type="text" name="newAuthor" id="newAuthor" placeholder="Auteur à ajouter..." required>
+                <br>
+                <input type="number" name="newDate" id="newDate" placeholder="Année de publication..." required min="1000" max="2100">
+                <br>
+                <button type="submit" name="addConfirm" id="addConfirm">Confirmer l'enregistrement</button>
+            </form>
+        </section>
+
+        <h3>Rechercher des livres</h3>
+        <section name="filterSearch" id="filterSearch">
+            <input name="titleSearch" id="titleSearch" placeholder="Titre recherché" type="text">
+            <br>
+            <input name="authorSearch" id="authorSearch" placeholder="Auteur recherché" type="text">
+            <br>
+            
+            <input name="dateSearch" id="dateSearch" placeholder="Année de publication recherchée..." type="number" min="1000" max="2100">
+            <br>
+            <button name="filterConfirm" id="filterConfirm">Confirmer les filtres de recherche</button>
+            <br>
+            <button name="availableSearch" id="availableSearch">Afficher les livres disponibles maintenant</button>
+            <br>
+            <button name="booksListConfirm" id="booksListConfirm">Liste de tous les livres</button>
+        </section>
+        
+       
+        <div id="books"></div>
+    </main>
+
+    
+    <script src="/front/js/script.js"></script>
+    <script src="/front/js/app.js"></script>
+</body>
+
+</html>
