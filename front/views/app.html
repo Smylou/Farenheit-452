@@ -4,13 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion des Salles - KaraPasOK</title>
-    <link rel="stylesheet" href="/front-end/css/app.css">
+    <title>Gestion des livres</title>
+
+    <link rel="stylesheet" href="/front/css/app.css">
 </head>
 
 <body>
     <header>
-        <h1>KaraPasOK</h1>
+        <h1>Farenheit-452</h1>
         <div class="user-controls">
             <span id="user-info">Chargement du profil...</span>
             <button id="btn-logout">Déconnexion</button>
@@ -18,33 +19,49 @@
     </header>
 
     <main>
+       
         <section id="create-section" style="display: none;">
-            <h2>Créer une nouvelle salle</h2>
-            <form id="form-create-salle">
-                <div class="input-group">
-                    <input type="text" id="name" placeholder="Nom de la salle" required>
-                </div>
-                <div class="input-group">
-                    <input type="number" id="capacity" placeholder="Capacité (pers.)" required>
-                </div>
-                <div class="input-group full-width">
-                    <textarea id="description" placeholder="Description de la salle (équipement, ambiance...)" rows="3"></textarea>
-                </div>
-                <div class="input-group full-width">
-                    <input type="number" id="pricePerDay" placeholder="Prix par jour (€)" required>
-                </div>
-                <button type="submit" class="btn-submit">Ajouter la salle</button>
+            <h2>Section Admin - Gestion avancée</h2>
+            <p>Vous êtes administrateur. Vous avez accès à toutes les fonctionnalités.</p>
+        </section>
+
+        
+        <section id="addBook">
+            <h3>Ajouter un livre</h3>
+            <form action="#" id="form">
+                <input name="newTitle" id="newTitle" placeholder="Titre du livre à ajouter..." type="text" required>
+                <br>
+                <input type="text" name="newAuthor" id="newAuthor" placeholder="Auteur à ajouter..." required>
+                <br>
+                <input type="number" name="newDate" id="newDate" placeholder="Année de publication..." required min="1000" max="2100">
+                <br>
+                <button type="submit" name="addConfirm" id="addConfirm">Confirmer l'enregistrement</button>
             </form>
         </section>
 
-        <section class="rooms-container">
-            <h2>Salles disponibles</h2>
-            <div id="salles-list">
-                </div>
+        <h3>Rechercher des livres</h3>
+        <section name="filterSearch" id="filterSearch">
+            <input name="titleSearch" id="titleSearch" placeholder="Titre recherché" type="text">
+            <br>
+            <input name="authorSearch" id="authorSearch" placeholder="Auteur recherché" type="text">
+            <br>
+            
+            <input name="dateSearch" id="dateSearch" placeholder="Année de publication recherchée..." type="number" min="1000" max="2100">
+            <br>
+            <button name="filterConfirm" id="filterConfirm">Confirmer les filtres de recherche</button>
+            <br>
+            <button name="availableSearch" id="availableSearch">Afficher les livres disponibles maintenant</button>
+            <br>
+            <button name="booksListConfirm" id="booksListConfirm">Liste de tous les livres</button>
         </section>
+        
+       
+        <div id="books"></div>
     </main>
 
-    <script src="/front-end/js/app.js"></script>
+    
+    <script src="/front/js/script.js"></script>
+    <script src="/front/js/app.js"></script>
 </body>
 
 </html>

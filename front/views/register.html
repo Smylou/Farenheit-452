@@ -10,27 +10,27 @@
 
 <body class="signup-page">
     <section class="container">
-        <form  id="formRegister">
-            <h2>Enregistrez vous</h2>
+        <form id="formRegister">
+            <h2>Enregistrez-vous</h2>
             <div>
-                <input type="text" name="mail" id="mail" placeholder="Email" required>
+                <input type="email" name="mail" id="mail" placeholder="Email" required>
             </div>
             <div>
-                <input type="text" name="prenom" id="prenom" placeholder="Prénom" required>
+                <input type="text" name="prenom" id="prenom" placeholder="Prénom" required minlength="2" maxlength="50">
             </div>
             <div>
-                <input type="text" name="nom" id="nom"  placeholder="Nom" required>
+                <input type="text" name="nom" id="nom" placeholder="Nom" required minlength="2" maxlength="50">
             </div>
             <div>
-                <input type="password" id="pwd" name="pwd" placeholder="Mot de Passe" required>
+                <input type="password" id="pwd" name="pwd" placeholder="Mot de Passe (8 caractères min)" required minlength="8">
             </div>
             <button type="submit" class="btn-add">Envoyer</button>
         </form>
         
-    <div class="footer-links" style="text-align:center; margin-top:20px;">
-      <a href="/front/views/login.html">Déjà un compte ? Connectez-vous</a><br>
-      <a href="/front/index.html">Retour à l'accueil</a>
-    </div>
+        <div class="footer-links" style="text-align:center; margin-top:20px;">
+            <a href="/front/views/login.html">Déjà un compte ? Connectez-vous</a><br>
+            <a href="/front/index.html">Retour à l'accueil</a>
+        </div>
     </section>
 
     <script src="/front/js/script.js"></script>
