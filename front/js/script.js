@@ -22,7 +22,7 @@ window.addEventListener('DOMContentLoaded', function() {
     // Afficher les infos utilisateur
     const userInfo = document.getElementById('user-info');
     if (userInfo) {
-        userInfo.textContent = `Bonjour ${user.prenom} ${user.nom}`;
+        userInfo.textContent = `Bonjour ${user.lastName} ${user.firstName}`;
         console.log("✓ Info utilisateur affichée");
     } else {
         console.error("✗ Élément user-info introuvable");
