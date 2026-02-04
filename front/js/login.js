@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 localStorage.setItem('user', JSON.stringify(data.user));
 
                 // Rediriger vers app.html
-                window.location.href = 'app.html';
+                 window.location.href = 'app.html';
             } else {
                 alert(data.message);
             }
