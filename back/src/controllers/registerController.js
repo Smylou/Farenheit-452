@@ -17,7 +17,7 @@ import {User} from "../models/userModel.js";
 export async function register(req, res) { //Fonction asynchrone
 
   try {
-    const { lastName, firstName, email, password } = req.body;
+    const { lastName, firstName, mail, password } = req.body;
     if (!lastName || !firstName || !email || !password) { // Vérifier que tout est bien rempli sinon message d'erreur
       return res.status(400).json({ message: "Tous les champs sont requis." });
     }

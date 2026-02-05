@@ -2,11 +2,10 @@ const API_URL = "http://localhost:3000/api";
 
 console.log("✓ Fichier script.js chargé");
 
-// ATTENDRE QUE LE DOM SOIT PRÊT
+// === INITIALISATION AU CHARGEMENT DU DOM ===
 window.addEventListener('DOMContentLoaded', function() {
     console.log("✓ DOM chargé");
     
-    // Vérifier l'authentification
     const token = localStorage.getItem('token');
     const user = JSON.parse(localStorage.getItem('user'));
 
@@ -24,8 +23,6 @@ window.addEventListener('DOMContentLoaded', function() {
     if (userInfo) {
         userInfo.textContent = `Bonjour ${user.lastName} ${user.firstName}`;
         console.log("✓ Info utilisateur affichée");
-    } else {
-        console.error("✗ Élément user-info introuvable");
     }
 
     // Afficher les sections admin
@@ -35,71 +32,241 @@ window.addEventListener('DOMContentLoaded', function() {
         const createSection = document.getElementById('create-section');
         const addBookSection = document.getElementById('addBook');
         
-        if (createSection) {
-            createSection.style.display = 'block';
-            console.log("✓ Section admin affichée");
-        }
-        
-        if (addBookSection) {
-            addBookSection.style.display = 'block';
-            console.log("✓ Formulaire ajout affiché");
-        }
+        if (createSection) createSection.style.display = 'block';
+        if (addBookSection) addBookSection.style.display = 'block';
     }
 
-    // GESTION DE LA DÉCONNEXION
+    // Gestion de la déconnexion
     const btnLogout = document.getElementById('btn-logout');
-    console.log("Bouton logout trouvé:", btnLogout);
-    
     if (btnLogout) {
         btnLogout.addEventListener('click', function(e) {
-            console.log("✓ Clic sur déconnexion détecté");
+            console.log("✓ Déconnexion");
             e.preventDefault();
-            
-            // Nettoyer le localStorage
             localStorage.removeItem('token');
             localStorage.removeItem('user');
-            console.log("✓ LocalStorage nettoyé");
-            
-            // Rediriger
-            console.log("✓ Redirection vers login.html");
             window.location.href = '/front/views/login.html';
         });
         console.log("✓ Event listener de déconnexion attaché");
-    } else {
-        console.error("✗ ERREUR : Bouton btn-logout introuvable dans le DOM !");
     }
+
+    // Initialiser la modale
+    initModal();
+    initRecommendationModal();
 });
 
+// === ÉLÉMENTS DOM ===
 const bookWrapper = document.querySelector("#books");
 const formulaire = document.querySelector("#form");
 const booksList = document.querySelector("#booksListConfirm");
+const filterBtn = document.querySelector("#filterConfirm");
+const availableBtn = document.querySelector("#availableSearch");
 
-// CREATION NOUVEAU LIVRE
+// === GESTION DE LA MODALE ===
+let currentBookId = null;
+const modal = document.getElementById("editModal");
+const closeBtn = document.querySelector(".close");
+const cancelBtn = document.querySelector(".btn-cancel");
+const editForm = document.getElementById("editForm");
+
+function initModal() {
+    if (!modal || !closeBtn || !cancelBtn || !editForm) return;
+
+    // Fermer avec le X
+    closeBtn.addEventListener("click", () => {
+        modal.style.display = "none";
+    });
+
+    // Fermer avec le bouton Annuler
+    cancelBtn.addEventListener("click", () => {
+        modal.style.display = "none";
+    });
+
+    // Fermer en cliquant à l'extérieur
+    window.addEventListener("click", (event) => {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+
+    // Gérer la soumission du formulaire
+    editForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        
+        const newTitle = document.getElementById("editTitle").value;
+        const newAuthor = document.getElementById("editAuthor").value;
+        const newDate = document.getElementById("editDate").value;
+        
+        if (newTitle && newAuthor && newDate) {
+            await updateBook(currentBookId, newTitle, newAuthor, Number(newDate));
+            modal.style.display = "none";
+        }
+    });
+}
+
+function openEditModal(book) {
+    if (!modal) return;
+    
+    currentBookId = book._id;
+    
+    // Pré-remplir les champs
+    document.getElementById("editTitle").value = book.title;
+    document.getElementById("editAuthor").value = book.author;
+    document.getElementById("editDate").value = book.publicationDate;
+    
+    // Afficher la modale
+    modal.style.display = "block";
+}
+
+// === GESTION DE LA MODALE DE RECOMMANDATION ===
+function initRecommendationModal() {
+    const btnRecommendation = document.getElementById("btnRecommendation");
+    const recommendationModal = document.getElementById("recommendationModal");
+    const closeRecommendation = document.querySelector(".close-recommendation");
+    const cancelRecommendation = document.querySelector(".btn-cancel-recommendation");
+    const recommendationForm = document.getElementById("recommendationForm");
+    const btnNewRecommendation = document.getElementById("btnNewRecommendation");
+
+    if (!btnRecommendation || !recommendationModal) return;
+
+    // Ouvrir la modale
+    btnRecommendation.addEventListener("click", () => {
+        recommendationModal.style.display = "block";
+        document.getElementById("recommendationResult").style.display = "none";
+        document.getElementById("recommendationForm").style.display = "block";
+        recommendationForm.reset();
+    });
+
+    // Fermer avec le X
+    if (closeRecommendation) {
+        closeRecommendation.addEventListener("click", () => {
+            recommendationModal.style.display = "none";
+        });
+    }
+
+    // Fermer avec le bouton Annuler
+    if (cancelRecommendation) {
+        cancelRecommendation.addEventListener("click", () => {
+            recommendationModal.style.display = "none";
+        });
+    }
+
+    // Fermer en cliquant à l'extérieur
+    window.addEventListener("click", (event) => {
+        if (event.target === recommendationModal) {
+            recommendationModal.style.display = "none";
+        }
+    });
+
+    // Soumettre le formulaire
+    if (recommendationForm) {
+        recommendationForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            await getAIRecommendation();
+        });
+    }
+
+    // Nouvelle recommandation
+    if (btnNewRecommendation) {
+        btnNewRecommendation.addEventListener("click", () => {
+            document.getElementById("recommendationResult").style.display = "none";
+            document.getElementById("recommendationForm").style.display = "block";
+            recommendationForm.reset();
+        });
+    }
+}
+
+async function getAIRecommendation() {
+    const genre = document.getElementById("genre").value;
+    const favoriteAuthor = document.getElementById("favoriteAuthor").value;
+    const theme = document.getElementById("theme").value;
+    const length = document.getElementById("length").value;
+
+    const btnGetRecommendation = document.getElementById("btnGetRecommendation");
+    const btnText = btnGetRecommendation.querySelector(".btn-text");
+    const btnLoader = btnGetRecommendation.querySelector(".btn-loader");
+
+    try {
+        // Afficher le loader
+        btnText.style.display = "none";
+        btnLoader.style.display = "inline";
+        btnGetRecommendation.disabled = true;
+
+        // Récupérer tous les livres disponibles
+        const books = await getAllBooks();
+
+        if (!books || books.length === 0) {
+            alert("Aucun livre disponible dans la bibliothèque pour faire une recommandation.");
+            return;
+        }
+
+        // Préparer les préférences
+        const preferences = {
+            genre,
+            favoriteAuthor: favoriteAuthor || "Aucun auteur spécifique",
+            theme,
+            length
+        };
+
+        // Appeler l'API de recommandation
+        const response = await fetch(`${API_URL}/recommendation`, {
+            method: "POST",
+            headers: {
+                'Content-Type': "application/json",
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify({
+                preferences,
+                availableBooks: books
+            })
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+            // Afficher le résultat
+            document.querySelector(".recommended-title").textContent = 
+                `📖 ${data.recommendation.title}`;
+            document.querySelector(".recommendation-reason").textContent = 
+                data.recommendation.reason;
+
+            document.getElementById("recommendationForm").style.display = "none";
+            document.getElementById("recommendationResult").style.display = "block";
+        } else {
+            alert("Erreur: " + (data.message || "Impossible d'obtenir une recommandation"));
+        }
+
+    } catch (error) {
+        console.error("Erreur:", error);
+        alert("Erreur de connexion au serveur. Veuillez réessayer.");
+    } finally {
+        // Restaurer le bouton
+        btnText.style.display = "inline";
+        btnLoader.style.display = "none";
+        btnGetRecommendation.disabled = false;
+    }
+}
+
+// === CRÉATION NOUVEAU LIVRE ===
 if (formulaire) {
     formulaire.addEventListener("submit", async (event) => {
         event.preventDefault();
         const data = new FormData(event.target);
         await addBook(data.get("newTitle"), data.get("newAuthor"), data.get("newDate"));
-
-        // Vider le formulaire après succès
         event.target.reset();
     });
 }
 
-// Gestion des filtres de recherche
-const filterBtn = document.querySelector("#filterConfirm");
+// === GESTION DES FILTRES ===
 if (filterBtn) {
     filterBtn.addEventListener("click", async () => {
         const titleSearch = document.querySelector("#titleSearch").value;
         const authorSearch = document.querySelector("#authorSearch").value;
         const dateSearch = document.querySelector("#dateSearch").value;
 
-        // Vider l'affichage précédent
         if (bookWrapper) {
             bookWrapper.textContent = "";
         }
 
-        // Chercher selon le filtre rempli (priorité: titre > auteur > date)
         if (titleSearch) {
             await getBookByTitle();
         } else if (authorSearch) {
@@ -112,15 +279,63 @@ if (filterBtn) {
     });
 }
 
+// === AFFICHER TOUS LES LIVRES ===
+if (booksList) {
+    booksList.addEventListener("click", async () => {
+        try {
+            bookWrapper.style.display = "block";
+            const books = await getAllBooks();
+            if (bookWrapper) {
+                bookWrapper.textContent = "";
+                await displayBook(books);
+            }
+        } catch (error) {
+            console.error("Erreur:", error);
+            alert("Impossible de récupérer la liste des livres");
+        }
+    });
+}
+
+// === LIVRES DISPONIBLES ===
+if (availableBtn) {
+    availableBtn.addEventListener("click", async () => {
+        try {
+            const response = await fetch(`${API_URL}/book/available/true`, {
+                method: "GET",
+                headers: {
+                    'Content-type': "application/json"
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error("Erreur lors de la recherche");
+            }
+
+            const books = await response.json();
+
+            if (bookWrapper) {
+                bookWrapper.textContent = "";
+                if (books.length === 0) {
+                    alert("Aucun livre disponible pour le moment");
+                } else {
+                    displayBook(books);
+                }
+            }
+        } catch (error) {
+            console.error("Erreur:", error);
+            alert("Erreur de connexion au serveur");
+        }
+    });
+}
+
+// === FONCTIONS API ===
 async function addBook(title, author, publicationDate) {
     try {
-        // Validation côté frontend
         if (!title || !author || !publicationDate) {
             alert("Veuillez remplir tous les champs");
             return;
         }
 
-        // Conversion en number
         const dateNumber = Number(publicationDate);
         if (isNaN(dateNumber)) {
             alert("La date de publication doit être un nombre valide");
@@ -144,7 +359,6 @@ async function addBook(title, author, publicationDate) {
 
         if (response.ok) {
             alert("Livre ajouté avec succès !");
-            // Rafraîchir la liste
             const books = await getAllBooks();
             if (bookWrapper) {
                 bookWrapper.textContent = "";
@@ -159,24 +373,6 @@ async function addBook(title, author, publicationDate) {
         console.error("Erreur:", error);
         alert("Erreur de connexion au serveur");
     }
-}
-
-// AFFICHE TOUS LES LIVRES
-let hide = document.createElement("button");
-
-if (booksList) {
-    booksList.addEventListener("click", async () => {
-        try {
-            const books = await getAllBooks();
-            if (bookWrapper) {
-                bookWrapper.textContent = "";
-                await displayBook(books);
-            }
-        } catch (error) {
-            console.error("Erreur:", error);
-            alert("Impossible de récupérer la liste des livres");
-        }
-    });
 }
 
 async function getAllBooks() {
@@ -210,9 +406,7 @@ async function displayBook(data) {
     data.forEach((book) => {
         const paragraph = document.createElement("p");
         paragraph.className = "book-item";
-
-        // Texte du livre
-        paragraph.textContent = `Titre: ${book.title}. Auteur: ${book.author}. Date de publication: ${book.publicationDate} `;
+        paragraph.textContent = `TITRE: ${book.title}. Auteur: ${book.author}. Date de publication: ${book.publicationDate} `;
         bookWrapper.appendChild(paragraph);
 
         // Boutons admin
@@ -221,14 +415,8 @@ async function displayBook(data) {
             const edit = document.createElement("button");
             edit.textContent = "Modifier";
             edit.className = "btn-edit";
-            edit.addEventListener("click", async () => {
-                const newTitle = prompt("Nouveau titre:", book.title);
-                const newAuthor = prompt("Nouvel auteur:", book.author);
-                const newDate = prompt("Nouvelle date:", book.publicationDate);
-
-                if (newTitle && newAuthor && newDate) {
-                    await updateBook(book._id, newTitle, newAuthor, Number(newDate));
-                }
+            edit.addEventListener("click", () => {
+                openEditModal(book);
             });
             paragraph.appendChild(edit);
 
@@ -249,15 +437,16 @@ async function displayBook(data) {
         }
     });
 
+    // Bouton Fermer
+    const hide = document.createElement("button");
     hide.textContent = "Fermer la liste";
-    bookWrapper.appendChild(hide);
-
+    hide.className = "btn-close";
     hide.addEventListener("click", () => {
-        bookWrapper.textContent = "";
+        bookWrapper.style.display = "none";
     });
+    bookWrapper.appendChild(hide);
 }
 
-// FONCTION: Mise à jour d'un livre
 async function updateBook(id, title, author, publicationDate) {
     try {
         const response = await fetch(`${API_URL}/book/${id}`, {
@@ -275,7 +464,6 @@ async function updateBook(id, title, author, publicationDate) {
 
         if (response.ok) {
             alert("Livre modifié avec succès !");
-            // Rafraîchir la liste
             const books = await getAllBooks();
             if (bookWrapper) {
                 bookWrapper.textContent = "";
@@ -294,7 +482,6 @@ async function updateBook(id, title, author, publicationDate) {
     }
 }
 
-// FONCTION: Suppression de livre
 async function deleteBook(id) {
     try {
         const response = await fetch(`${API_URL}/book/${id}`, {
@@ -425,37 +612,4 @@ async function getBookByDate() {
         console.error("Erreur:", error);
         alert("Erreur de connexion au serveur");
     }
-}
-
-// Rechercher les livres disponibles
-const availableBtn = document.querySelector("#availableSearch");
-if (availableBtn) {
-    availableBtn.addEventListener("click", async () => {
-        try {
-            const response = await fetch(`${API_URL}/book/available/true`, {
-                method: "GET",
-                headers: {
-                    'Content-type': "application/json"
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error("Erreur lors de la recherche");
-            }
-
-            const books = await response.json();
-
-            if (bookWrapper) {
-                bookWrapper.textContent = "";
-                if (books.length === 0) {
-                    alert("Aucun livre disponible pour le moment");
-                } else {
-                    displayBook(books);
-                }
-            }
-        } catch (error) {
-            console.error("Erreur:", error);
-            alert("Erreur de connexion au serveur");
-        }
-    });
 }

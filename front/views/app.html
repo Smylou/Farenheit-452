@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion des livres</title>
-
     <link rel="stylesheet" href="../css/app.css">
 </head>
 
@@ -19,49 +18,129 @@
     </header>
 
     <main>
-       
         <section id="create-section" style="display: none;">
             <h2>Section Admin - Gestion avancée</h2>
             <p>Vous êtes administrateur. Vous avez accès à toutes les fonctionnalités.</p>
         </section>
 
-        
         <section id="addBook" style="display: none;">
             <h3>Ajouter un livre</h3>
-            <form action="#" id="form">
+            <form id="form">
                 <input name="newTitle" id="newTitle" placeholder="Titre du livre à ajouter..." type="text" required>
-                <br>
-                <input type="text"  name="newAuthor" id="newAuthor" placeholder="Auteur à ajouter..." required>
-                <br>
+                <input type="text" name="newAuthor" id="newAuthor" placeholder="Auteur à ajouter..." required>
                 <input type="number" name="newDate" id="newDate" placeholder="Année de publication..." required min="1000" max="2100">
-                <br>
-                <button type="submit" class="btn-toggle" name="addConfirm" id="addConfirm">Confirmer l'enregistrement</button>
+                <button type="submit" class="btn-toggle" id="addConfirm">Confirmer l'enregistrement</button>
             </form>
         </section>
 
-        
-        <section name="filterSearch" id="filterSearch">
+        <section id="filterSearch">
             <h3>Rechercher des livres</h3>
-            <div id="form">
-            <input name="titleSearch" id="titleSearch" placeholder="Titre recherché" type="text">
-            <br>
-            <input name="authorSearch" id="authorSearch" placeholder="Auteur recherché" type="text">
-            <br>
-            <input name="dateSearch" id="dateSearch" placeholder="Année de publication recherchée..." type="number" min="1000" max="2100">
-            <br>
-            <button name="filterConfirm" class="btn-toggle" id="filterConfirm">Confirmer les filtres de recherche</button>
-            <br>
-            <button name="availableSearch" class="btn-toggle" id="availableSearch">Afficher les livres disponibles maintenant</button>
-            <br>
-            <button name="booksListConfirm" class="btn-toggle" id="booksListConfirm">Liste de tous les livres</button>
-        </div>
+            <input id="titleSearch" placeholder="Titre recherché" type="text">
+            <input id="authorSearch" placeholder="Auteur recherché" type="text">
+            <input id="dateSearch" placeholder="Année de publication recherchée..." type="number" min="1000" max="2100">
+            <button class="btn-toggle" id="filterConfirm">Confirmer les filtres de recherche</button>
+            <button class="btn-toggle" id="availableSearch">Afficher les livres disponibles maintenant</button>
+            <button class="btn-toggle" id="booksListConfirm">Liste de tous les livres</button>
+            <button class="btn-toggle btn-recommendation" id="btnRecommendation">Obtenir une recommandation IA</button>
         </section>
-        
-       
+
         <div id="books"></div>
     </main>
 
-    
+    <!-- Modale d'édition -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Modifier le livre</h2>
+            <form id="editForm">
+                <div class="form-group">
+                    <label for="editTitle">Titre:</label>
+                    <input type="text" id="editTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="editAuthor">Auteur:</label>
+                    <input type="text" id="editAuthor" required>
+                </div>
+                <div class="form-group">
+                    <label for="editDate">Date de publication:</label>
+                    <input type="number" id="editDate" required min="1000" max="2100">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Enregistrer</button>
+                    <button type="button" class="btn-cancel">Annuler</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modale de recommandation IA -->
+    <div id="recommendationModal" class="modal">
+        <div class="modal-content">
+            <span class="close-recommendation">&times;</span>
+            <h2>Recommandation IA</h2>
+            
+            <!-- Formulaire de préférences -->
+            <form id="recommendationForm">
+                <div class="form-group">
+                    <label for="genre">Genre préféré :</label>
+                    <select id="genre" required>
+                        <option value="">-- Choisir un genre --</option>
+                        <option value="roman">Roman</option>
+                        <option value="science-fiction">Science-Fiction</option>
+                        <option value="fantasy">Fantasy</option>
+                        <option value="thriller">Thriller</option>
+                        <option value="policier">Policier</option>
+                        <option value="classique">Classique</option>
+                        <option value="biographie">Biographie</option>
+                        <option value="poésie">Poésie</option>
+                        <option value="histoire">Histoire</option>
+                        <option value="philosophie">Philosophie</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="favoriteAuthor">Auteur préféré (optionnel) :</label>
+                    <input type="text" id="favoriteAuthor" placeholder="Ex: Victor Hugo, Agatha Christie...">
+                </div>
+
+                <div class="form-group">
+                    <label for="theme">Thème ou ambiance recherché :</label>
+                    <input type="text" id="theme" placeholder="Ex: aventure, mystère, romance, suspense..." required>
+                </div>
+
+                <div class="form-group">
+                    <label for="length">Longueur préférée :</label>
+                    <select id="length" required>
+                        <option value="peu importe">Peu importe</option>
+                        <option value="court">Court (lecture rapide)</option>
+                        <option value="moyen">Moyen (quelques heures)</option>
+                        <option value="long">Long (lecture approfondie)</option>
+                    </select>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary" id="btnGetRecommendation">
+                        <span class="btn-text">Obtenir ma recommandation</span>
+                        <span class="btn-loader" style="display: none;">Analyse en cours...</span>
+                    </button>
+                    <button type="button" class="btn-cancel btn-cancel-recommendation">Annuler</button>
+                </div>
+            </form>
+
+            <!-- Résultat de la recommandation -->
+            <div id="recommendationResult" style="display: none;">
+                <div class="recommendation-card">
+                    <h3>Livre recommandé pour vous</h3>
+                    <div class="recommendation-content">
+                        <p class="recommended-title"></p>
+                        <p class="recommendation-reason"></p>
+                    </div>
+                    <button class="btn-primary" id="btnNewRecommendation">Nouvelle recommandation</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="../js/script.js"></script>
 </body>
 
