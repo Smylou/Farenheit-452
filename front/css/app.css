@@ -1,32 +1,21 @@
 :root {
-    /* Couleurs principales */
     --primary: #4f46e5;
     --primary-hover: #4338ca;
     --primary-light: rgba(79, 70, 229, 0.1);
-    
-    /* Couleurs de fond */
     --bg-main: lightgrey;
     --bg-card: #ffffff;
-    
-    /* Textes */
     --text-primary: #1e293b;
     --text-secondary: #64748b;
     --text-muted: #94a3b8;
-    
-    /* Bordures et ombres */
     --border-color: #e2e8f0;
     --border-radius: 12px;
     --border-radius-sm: 8px;
     --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1);
     --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
     --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-    
-    /* Couleurs d'action */
     --danger: #ef4444;
     --danger-hover: #dc2626;
     --success: #10b981;
-    
-    /* Spacing */
     --spacing-xs: 0.5rem;
     --spacing-sm: 0.75rem;
     --spacing-md: 1rem;
@@ -35,7 +24,6 @@
     --spacing-2xl: 2.5rem;
 }
 
-/* === RESET & BASE === */
 * {
     margin: 0;
     padding: 0;
@@ -105,14 +93,14 @@ header h1 {
     transform: translateY(0);
 }
 
-/* === MAIN CONTENT === */
+/* === MAIN === */
 main {
     padding: var(--spacing-2xl) 5%;
     max-width: 1200px;
     margin: 0 auto;
 }
 
-/* === SECTION ADMIN === */
+/* === SECTIONS === */
 #create-section {
     background-color: var(--bg-card);
     padding: var(--spacing-xl);
@@ -135,8 +123,7 @@ main {
     font-size: 0.95rem;
 }
 
-/* === SECTION AJOUT DE LIVRE === */
-#addBook {
+#addBook, #filterSearch {
     background-color: var(--bg-card);
     padding: var(--spacing-xl);
     border-radius: var(--border-radius);
@@ -145,7 +132,7 @@ main {
     border: 1px solid var(--border-color);
 }
 
-#addBook h3 {
+#addBook h3, #filterSearch h3 {
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--text-primary);
@@ -155,15 +142,14 @@ main {
     display: inline-block;
 }
 
-/* === FORMULAIRE D'AJOUT === */
-#form {
+/* === FORMULAIRES === */
+#form, #filterSearch {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-md);
-    margin-top: var(--spacing-lg);
 }
 
-#form input {
+input {
     width: 100%;
     padding: var(--spacing-sm) var(--spacing-md);
     border: 2px solid var(--border-color);
@@ -175,74 +161,26 @@ main {
     transition: all 0.2s ease;
 }
 
-#form input:focus {
+input:focus {
     outline: none;
     border-color: var(--primary);
     background-color: white;
     box-shadow: 0 0 0 4px var(--primary-light);
 }
 
-#form input::placeholder {
+input::placeholder {
     color: var(--text-muted);
 }
 
-/* Nombre inputs */
-#form input[type="number"] {
+input[type="number"] {
     appearance: textfield;
 }
 
-#form input[type="number"]::-webkit-inner-spin-button,
-#form input[type="number"]::-webkit-outer-spin-button {
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
-
-/* === SECTION RECHERCHE === */
-main > h3 {
-    font-size: 1.75rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: var(--spacing-lg);
-}
-
-#filterSearch {
-    background-color: var(--bg-card);
-    padding: var(--spacing-xl);
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-md);
-    margin-bottom: var(--spacing-2xl);
-    border: 1px solid var(--border-color);
-}
-
-#filterSearch input {
-    width: 100%;
-    padding: var(--spacing-sm) var(--spacing-md);
-    border: 2px solid var(--border-color);
-    border-radius: var(--border-radius-sm);
-    background-color: #f8fafc;
-    font-family: inherit;
-    font-size: 0.95rem;
-    color: var(--text-primary);
-    transition: all 0.2s ease;
-    margin-bottom: var(--spacing-md);
-
-}
-
-#filterSearch input:focus {
-    outline: none;
-    border-color: var(--primary);
-    background-color: white;
-    box-shadow: 0 0 0 4px var(--primary-light);
-}
-
-#filterSearch input::placeholder {
-    color: var(--text-muted);
-}
-
-#filterSearch input[type="number"] {
-    appearance: textfield;
-}
-
 
 /* === BOUTONS === */
 .btn-toggle {
@@ -256,7 +194,6 @@ main > h3 {
     cursor: pointer;
     transition: all 0.2s ease;
     width: 100%;
-    margin-bottom: var(--spacing-sm);
 }
 
 .btn-toggle:hover {
@@ -269,206 +206,325 @@ main > h3 {
     transform: translateY(0);
 }
 
-#addConfirm {
-    margin-top: var(--spacing-sm);
+.btn-recommendation {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    font-size: 1rem;
+    margin-top: var(--spacing-md);
 }
 
-/* === SECTION DES LIVRES === */
-#books {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: var(--spacing-xl);
-    margin-top: var(--spacing-2xl);
+.btn-recommendation:hover {
+    background: linear-gradient(135deg, #5568d3 0%, #65408b 100%);
 }
 
-/* Message "Aucun livre" ou "Chargement" */
-#books > p {
-    grid-column: 1 / -1;
+.btn-delete, .btn-edit, .btn-close {
+    color: white;
+    border: none;
+    padding: var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
+    font-weight: 600;
+    font-size: 0.9rem;
+    width: 100%;
+    margin-bottom: var(--spacing-sm);
     text-align: center;
-    color: var(--text-secondary);
-    font-size: 1.1rem;
-    padding: var(--spacing-2xl);
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
-/* === CARTES DE LIVRES === */
-#books > div {
+.btn-delete {
+    background-color: var(--danger);
+}
+
+.btn-delete:hover {
+    background-color: var(--danger-hover);
+}
+
+.btn-edit, .btn-close {
+    background-color: var(--primary);
+}
+
+.btn-edit:hover, .btn-close:hover {
+    background-color: var(--primary-hover);
+}
+
+/* === LISTE DES LIVRES === */
+#books {
+    background-color: var(--bg-card);
+    display: none;
+    padding: var(--spacing-2xl);
+    margin-top: var(--spacing-2xl);
+    border-radius: var(--border-radius-sm);
+    box-shadow: var(--shadow-md);
+    gap: var(--spacing-md);
+}
+
+.book-item {
     background-color: var(--bg-card);
     padding: var(--spacing-lg);
     border-radius: var(--border-radius);
     border: 1px solid var(--border-color);
     box-shadow: var(--shadow-sm);
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
+    margin-bottom: var(--spacing-md);
 }
 
-/* Barre colorée en haut */
-#books > div::before {
-    content: '';
-    position: absolute;
-    top: 0;
+/* === MODALE === */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
     left: 0;
+    top: 0;
     width: 100%;
-    height: 4px;
-    background: linear-gradient(90deg, var(--primary), var(--primary-hover));
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s ease;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
 }
 
-#books > div:hover {
-    transform: translateY(-8px);
+.modal-content {
+    background-color: var(--bg-card);
+    margin: 8% auto;
+    padding: var(--spacing-2xl);
+    border-radius: var(--border-radius);
+    width: 90%;
+    max-width: 500px;
     box-shadow: var(--shadow-lg);
-    border-color: var(--primary);
+    animation: modalSlideIn 0.3s ease;
 }
 
-#books > div:hover::before {
-    transform: scaleX(1);
+@keyframes modalSlideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
-/* Titre de la carte */
-#books > div h3,
-#books > div h4 {
-    font-size: 1.25rem;
+.modal-content h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 2px solid var(--primary);
+}
+
+.close {
+    color: var(--text-muted);
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 20px;
+    transition: color 0.2s ease;
+}
+
+.close:hover,
+.close:focus {
+    color: var(--text-primary);
+}
+
+.form-group {
+    margin-bottom: var(--spacing-lg);
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: var(--spacing-xs);
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+.form-group input {
+    width: 100%;
+}
+
+.form-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: flex-end;
+    margin-top: var(--spacing-xl);
+}
+
+.btn-primary, .btn-cancel {
+    padding: var(--spacing-sm) var(--spacing-xl);
+    border: none;
+    border-radius: var(--border-radius-sm);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-cancel {
+    background-color: var(--text-muted);
+    color: white;
+}
+
+.btn-cancel:hover {
+    background-color: var(--text-secondary);
+}
+
+/* === MODALE DE RECOMMANDATION === */
+.recommendation-card {
+    background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius);
+    border: 2px solid #667eea;
+    margin-top: var(--spacing-lg);
+}
+
+.recommendation-card h3 {
+    color: #667eea;
+    font-size: 1.3rem;
+    margin-bottom: var(--spacing-md);
+    text-align: center;
+}
+
+.recommendation-content {
+    background-color: white;
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-sm);
+    margin-bottom: var(--spacing-lg);
+}
+
+.recommended-title {
+    font-size: 1.1rem;
     font-weight: 700;
     color: var(--primary);
     margin-bottom: var(--spacing-sm);
 }
 
-/* Paragraphes de la carte */
-#books > div p {
+.recommendation-reason {
     color: var(--text-secondary);
+    line-height: 1.8;
     font-size: 0.95rem;
-    line-height: 1.6;
-    margin: var(--spacing-xs) 0;
 }
 
-/* Badge de disponibilité */
-#books > div .availability-badge {
+.btn-loader {
     display: inline-block;
-    padding: var(--spacing-xs) var(--spacing-sm);
-    border-radius: var(--border-radius-sm);
-    font-size: 0.85rem;
-    font-weight: 600;
-    margin-top: var(--spacing-sm);
+    animation: pulse 1.5s ease-in-out infinite;
 }
 
-#books > div .available {
-    background-color: rgba(16, 185, 129, 0.1);
-    color: var(--success);
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
 }
 
-#books > div .unavailable {
-    background-color: rgba(239, 68, 68, 0.1);
-    color: var(--danger);
+#btnGetRecommendation:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
 }
 
-/* Boutons dans les cartes */
-#books > div button {
-    margin-top: var(--spacing-md);
+select {
     width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    background-color: #f8fafc;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+select:focus {
+    outline: none;
+    border-color: var(--primary);
+    background-color: white;
+    box-shadow: 0 0 0 4px var(--primary-light);
 }
 
 /* === RESPONSIVE === */
-
-/* Tablette et petit desktop */
 @media (max-width: 768px) {
     header h1 {
         font-size: 1.25rem;
     }
-    
+
     .user-controls {
         gap: var(--spacing-md);
     }
-    
+
     #user-info {
         display: none;
     }
-    
+
     main {
         padding: var(--spacing-lg) 3%;
     }
-    
-    #create-section,
-    #addBook,
-    #filterSearch {
+
+    #create-section, #addBook, #filterSearch {
         padding: var(--spacing-lg);
     }
-    
-    #books {
-        grid-template-columns: 1fr;
-        gap: var(--spacing-lg);
+
+    .modal-content {
+        margin: 20% auto;
+        padding: var(--spacing-lg);
     }
 }
 
-/* Mobile */
 @media (max-width: 480px) {
     header {
         padding: var(--spacing-sm) 3%;
     }
-    
+
     header h1 {
         font-size: 1.1rem;
     }
-    
+
     #btn-logout {
         padding: var(--spacing-xs) var(--spacing-md);
         font-size: 0.85rem;
     }
-    
+
     main {
         padding: var(--spacing-md) 3%;
     }
-    
-    #create-section,
-    #addBook,
-    #filterSearch {
+
+    #create-section, #addBook, #filterSearch {
         padding: var(--spacing-md);
     }
-    
-    #create-section h2,
-    #addBook h3,
-    main > h3 {
-        font-size: 1.25rem;
+
+    .modal-content {
+        width: 95%;
+        margin: 30% auto;
     }
-    
-    #books {
-        gap: var(--spacing-md);
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .btn-primary, .btn-cancel {
+        width: 100%;
     }
 }
 
-/* === ÉTATS POUR JS === */
+/* === UTILITAIRES === */
 .loading {
     opacity: 0.6;
     pointer-events: none;
 }
 
 input:disabled,
-textarea:disabled,
 button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
 
-.error {
-    border-color: var(--danger) !important;
-}
-
-/* === UTILITAIRE === */
 .hidden {
     display: none !important;
-}
-
-.text-center {
-    text-align: center;
-}
-
-/* Supprimer les marges des <br> */
-br {
-    display: none;
-}
-
-#form > *:not(:last-child),
-#filterSearch > *:not(:last-child) {
-    margin-bottom: 0;
 }
