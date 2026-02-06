@@ -12,7 +12,7 @@
     --border-radius-sm: 8px;
     --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1);
     --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.589);
     --danger: #ef4444;
     --danger-hover: #dc2626;
     --success: #10b981;
@@ -253,7 +253,7 @@ input[type="number"]::-webkit-outer-spin-button {
     padding: var(--spacing-2xl);
     margin-top: var(--spacing-2xl);
     border-radius: var(--border-radius-sm);
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-lg);
     gap: var(--spacing-md);
 }
 
@@ -261,7 +261,7 @@ input[type="number"]::-webkit-outer-spin-button {
     background-color: var(--bg-card);
     padding: var(--spacing-lg);
     border-radius: var(--border-radius);
-    border: 1px solid var(--border-color);
+    border: 5px solid var(--border-color);
     box-shadow: var(--shadow-sm);
     margin-bottom: var(--spacing-md);
 }

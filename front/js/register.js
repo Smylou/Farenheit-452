@@ -1,6 +1,6 @@
 const API_URL = "http://localhost:3000/api";
 
-console.log("✓ Fichier register.js chargé");
+console.log("Fichier register.js chargé");
 
 window.addEventListener('DOMContentLoaded', function() {
     console.log("✓ DOM chargé");

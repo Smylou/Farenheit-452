@@ -2,7 +2,7 @@ import 'dotenv/config'
 console.log("=== VÉRIFICATION .ENV ===");
 console.log("PORT:", process.env.PORT);
 console.log("URL_DATABASE:", process.env.URL_DATABASE);
-console.log("JWT_SECRET:", process.env.JWT_SECRET ? "✅ Défini" : "❌ Undefined");
+console.log("JWT_SECRET:", process.env.JWT_SECRET ? "Défini" : "Undefined");
 console.log("========================")
 import express from "express";
 import mongoose from "mongoose";
