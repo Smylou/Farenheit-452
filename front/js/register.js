@@ -67,6 +67,7 @@ async function addUser(mail, prenom, nom, pwd) {
 
         if (response.ok) {
             return { success: true, data: data };
+            
         } else {
             alert("Erreur: " + (data.message || "Impossible de créer le compte"));
             return { success: false };

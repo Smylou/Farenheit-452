@@ -2,10 +2,60 @@ const API_URL = "http://localhost:3000/api";
 
 console.log("✓ Fichier script.js chargé");
 
+async function fetchReservations(status) {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    alert("Pas de token, connecte-toi.");
+    return [];
+  }
+
+  const url = status
+    ? `${API_URL}/reservations?status=${encodeURIComponent(status)}`
+    : `${API_URL}/reservations`;
+
+  const res = await fetch(url, {
+    method: "GET",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  const payload = await res.json();
+
+  if (!res.ok) {
+    alert(payload.error || payload.message || "Erreur récupération réservations");
+    return [];
+  }
+
+  return payload.reservations || [];
+}
+
+function renderReservations(list) {
+  const container = document.getElementById("reservations");
+  if (!container) {
+    console.error("❌ #reservations introuvable");
+    return;
+  }
+
+  container.innerHTML = "";
+
+  if (!list.length) {
+    container.innerHTML = "<p>Aucune réservation</p>";
+    return;
+  }
+
+  list.forEach((r) => {
+    const div = document.createElement("div");
+    div.className = "reservation-item";
+    div.textContent = `${r.Title} | ${new Date(r.StartDate).toLocaleDateString()} → ${new Date(r.endDate).toLocaleDateString()} | ${r.status}`;
+    container.appendChild(div);
+  });
+}
+
 // === INITIALISATION AU CHARGEMENT DU DOM ===
 window.addEventListener('DOMContentLoaded', function() {
+// ATTENDRE QUE LE DOM SOIT PRÊT
+window.addEventListener('DOMContentLoaded', function () {
     console.log("✓ DOM chargé");
-    
+
     const token = localStorage.getItem('token');
     const user = JSON.parse(localStorage.getItem('user'));
 
@@ -28,22 +78,68 @@ window.addEventListener('DOMContentLoaded', function() {
     // Afficher les sections admin
     if (user.role === 'admin') {
         console.log("✓ Utilisateur admin détecté");
-        
+
         const createSection = document.getElementById('create-section');
         const addBookSection = document.getElementById('addBook');
-        
-        if (createSection) createSection.style.display = 'block';
-        if (addBookSection) addBookSection.style.display = 'block';
+        const reservationSection = document.getElementById("reservationSection");
+        const reservationUserSection = document.getElementById("reservationUserSection");
+
+        if (createSection) {
+            createSection.style.display = 'block';
+            console.log("✓ Section admin affichée");
+        }
+
+        if (addBookSection) {
+            addBookSection.style.display = 'block';
+            console.log("✓ Formulaire ajout affiché");
+        }
+
+        if (reservationSection) {
+            reservationSection.style.display = "block";
+            console.log("Section résa affichée")
+        }
+
+        if(reservationUserSection) {
+          reservationUserSection.style.display ="none";
+          console.log("Section user non affichée")
+        } 
     }
 
-    // Gestion de la déconnexion
-    const btnLogout = document.getElementById('btn-logout');
-    if (btnLogout) {
-        btnLogout.addEventListener('click', function(e) {
-            console.log("✓ Déconnexion");
+    const btnReservationActive = document.getElementById("btnReservationActive");
+    const btnAllReservations = document.getElementById("btnAllReservations");
+
+    if (btnReservationActive) {
+        btnReservationActive.addEventListener("click", async (e) => {
             e.preventDefault();
+            const list = await fetchReservations("active");
+            renderReservations(list);
+        });
+    }
+
+    if (btnAllReservations) {
+        btnAllReservations.addEventListener("click", async (e) => {
+            e.preventDefault();
+            const list = await fetchReservations();
+            renderReservations(list);
+        });
+    }
+
+    // GESTION DE LA DÉCONNEXION
+    const btnLogout = document.getElementById('btn-logout');
+    console.log("Bouton logout trouvé:", btnLogout);
+
+    if (btnLogout) {
+        btnLogout.addEventListener('click', function (e) {
+            console.log("✓ Clic sur déconnexion détecté");
+            e.preventDefault();
+
+            // Nettoyer le localStorage
             localStorage.removeItem('token');
             localStorage.removeItem('user');
+            console.log("✓ LocalStorage nettoyé");
+
+            // Rediriger
+            console.log("✓ Redirection vers login.html");
             window.location.href = '/front/views/login.html';
         });
         console.log("✓ Event listener de déconnexion attaché");
