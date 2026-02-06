@@ -102,7 +102,7 @@ export async function getAllReservations(req, res) {
         const filter = {};
         if (status) filter.status = status;
 
-        const reservations = await Reservation.find(filter).sort({ createdAt: -1 });
+        const reservations = await Reservation.find(filter).populate("Book").sort({ createdAt: -1 });
 
         return res.json({
             ok: true,
@@ -116,3 +116,4 @@ export async function getAllReservations(req, res) {
         });
     }
 }
+

@@ -105,7 +105,7 @@ export async function getBookByDate(req, res) {
     }
 }
 
-// CORRECTION CRITIQUE: Conversion du paramètre string en boolean
+
 export async function getAvailableBook(req, res) {
     const availableParam = req.params.available;
     try {
