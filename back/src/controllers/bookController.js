@@ -1,4 +1,5 @@
 import Books from "../models/bookModel.js";
+import Reservation from "../models/reservationModel.js";
 
 // AMÉLIORATION: Ajout de la validation des données
 export async function addBook(req, res) {
@@ -203,4 +204,48 @@ export async function getBookById(req, res) {
         console.error(error);
         res.status(500).json({ ok: false, error: error.message });
     }
+}
+
+//Vérifier les livres disponibles non empruntés
+  export async function getBorrowableBooks(req, res) {
+  try {
+    // Tous les livres
+    const allBooks = await Books.find();
+
+    // Réservations actives
+    const activeReservations = await Reservation.find({ status: "active" });
+
+    // Construire la liste des livres disponibles
+    const availableBooks = [];
+
+    for (let i = 0; i < allBooks.length; i++) {
+      let isBorrowed = false;
+
+      for (let j = 0; j < activeReservations.length; j++) {
+        if (
+          activeReservations[j].Book &&
+          activeReservations[j].Book.toString() === allBooks[i]._id.toString()
+        ) {
+          isBorrowed = true;
+          break;
+        }
+      }
+
+      if (!isBorrowed) {
+        availableBooks.push(allBooks[i]);
+      }
+    }
+
+    return res.json({
+      ok: true,
+      books: availableBooks
+    });
+
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      ok: false,
+      error: "Erreur récupération livres disponibles"
+    });
+  }
 }
