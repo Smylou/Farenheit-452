@@ -37,12 +37,10 @@
 
         <section id="reservationSection" style="display: none;">
             <h3>Réservations</h3>
-
             <div class="reservations-control">
                 <button type="button" class="btn-toggle" id="btnReservationActive">Réservations en cours</button>
                 <button type="button" class="btn-toggle" id="btnAllReservations">Toutes les réservations</button>
             </div>
-
             <div id="reservations" class="reservations"></div>
         </section>
 
@@ -60,30 +58,20 @@
                     Faire une réservation
                 </button>
             </form>
-
+            <button class="btn-toggle" id="availableSearch">Afficher les livres disponibles maintenant</button>
             <div id="reservationMessage"></div>
         </section>
 
 
         <section name="filterSearch" id="filterSearch">
             <h3>Rechercher des livres</h3>
-            <div id="form">
-                <input name="titleSearch" id="titleSearch" placeholder="Titre recherché" type="text">
-                <br>
-                <input name="authorSearch" id="authorSearch" placeholder="Auteur recherché" type="text">
-                <br>
-                <input name="dateSearch" id="dateSearch" placeholder="Année de publication recherchée..." type="number"
-                    min="1000" max="2100">
-                <br>
-                <button name="filterConfirm" class="btn-toggle" id="filterConfirm">Confirmer les filtres de
-                    recherche</button>
-                <br>
-                <button name="availableSearch" class="btn-toggle" id="availableSearch">Afficher les livres disponibles
-                    maintenant</button>
-                <br>
-                <button name="booksListConfirm" class="btn-toggle" id="booksListConfirm">Liste de tous les
-                    livres</button>
-            </div>
+            <input id="titleSearch" placeholder="Titre recherché" type="text">
+            <input id="authorSearch" placeholder="Auteur recherché" type="text">
+            <input id="dateSearch" placeholder="Année de publication recherchée..." type="number" min="1000" max="2100">
+            <button class="btn-toggle" id="filterConfirm">Confirmer les filtres de recherche</button>
+            
+            <button class="btn-toggle" id="booksListConfirm">Liste de tous les livres</button>
+            <button class="btn-toggle btn-recommendation" id="btnRecommendation">Obtenir une recommandation IA</button>
         </section>
 
 

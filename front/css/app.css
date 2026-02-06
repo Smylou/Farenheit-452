@@ -123,7 +123,8 @@ main {
     font-size: 0.95rem;
 }
 
-#addBook, #filterSearch {
+#addBook,
+#filterSearch {
     background-color: var(--bg-card);
     padding: var(--spacing-xl);
     border-radius: var(--border-radius);
@@ -132,7 +133,8 @@ main {
     border: 1px solid var(--border-color);
 }
 
-#addBook h3, #filterSearch h3 {
+#addBook h3,
+#filterSearch h3 {
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--text-primary);
@@ -143,7 +145,8 @@ main {
 }
 
 /* === FORMULAIRES === */
-#form, #filterSearch {
+#form,
+#filterSearch {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-md);
@@ -216,7 +219,9 @@ input[type="number"]::-webkit-outer-spin-button {
     background: linear-gradient(135deg, #5568d3 0%, #65408b 100%);
 }
 
-.btn-delete, .btn-edit, .btn-close {
+.btn-delete,
+.btn-edit,
+.btn-close {
     color: white;
     border: none;
     padding: var(--spacing-sm);
@@ -238,11 +243,13 @@ input[type="number"]::-webkit-outer-spin-button {
     background-color: var(--danger-hover);
 }
 
-.btn-edit, .btn-close {
+.btn-edit,
+.btn-close {
     background-color: var(--primary);
 }
 
-.btn-edit:hover, .btn-close:hover {
+.btn-edit:hover,
+.btn-close:hover {
     background-color: var(--primary-hover);
 }
 
@@ -295,6 +302,7 @@ input[type="number"]::-webkit-outer-spin-button {
         transform: translateY(-50px);
         opacity: 0;
     }
+
     to {
         transform: translateY(0);
         opacity: 1;
@@ -348,7 +356,8 @@ input[type="number"]::-webkit-outer-spin-button {
     margin-top: var(--spacing-xl);
 }
 
-.btn-primary, .btn-cancel {
+.btn-primary,
+.btn-cancel {
     padding: var(--spacing-sm) var(--spacing-xl);
     border: none;
     border-radius: var(--border-radius-sm);
@@ -420,8 +429,15 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
 }
 
 #btnGetRecommendation:disabled {
@@ -449,6 +465,36 @@ select:focus {
     box-shadow: 0 0 0 4px var(--primary-light);
 }
 
+#reservationSection {
+    background-color: var(--bg-card);
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+    margin-bottom: var(--spacing-2xl);
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--primary);
+
+    .reservations-control {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-md);
+    }
+}
+
+#reservationUserSection {
+    background-color: var(--bg-card);
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+    margin-bottom: var(--spacing-2xl);
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--primary);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+
 /* === RESPONSIVE === */
 @media (max-width: 768px) {
     header h1 {
@@ -467,7 +513,9 @@ select:focus {
         padding: var(--spacing-lg) 3%;
     }
 
-    #create-section, #addBook, #filterSearch {
+    #create-section,
+    #addBook,
+    #filterSearch {
         padding: var(--spacing-lg);
     }
 
@@ -495,7 +543,9 @@ select:focus {
         padding: var(--spacing-md) 3%;
     }
 
-    #create-section, #addBook, #filterSearch {
+    #create-section,
+    #addBook,
+    #filterSearch {
         padding: var(--spacing-md);
     }
 
@@ -508,7 +558,8 @@ select:focus {
         flex-direction: column;
     }
 
-    .btn-primary, .btn-cancel {
+    .btn-primary,
+    .btn-cancel {
         width: 100%;
     }
 }

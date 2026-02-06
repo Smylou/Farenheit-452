@@ -31,7 +31,7 @@ async function fetchReservations(status) {
 function renderReservations(list) {
     const container = document.getElementById("reservations");
     if (!container) {
-        console.error("❌ #reservations introuvable");
+        console.error(" #reservations introuvable");
         return;
     }
 
@@ -45,13 +45,13 @@ function renderReservations(list) {
     list.forEach((r) => {
         const div = document.createElement("div");
         div.className = "reservation-item";
-        div.textContent = `${r.Title} | ${new Date(r.StartDate).toLocaleDateString()} → ${new Date(r.endDate).toLocaleDateString()} | ${r.status}`;
+        div.textContent = `${r.Book.title} | ${new Date(r.StartDate).toLocaleDateString()} → ${new Date(r.endDate).toLocaleDateString()} `;
         container.appendChild(div);
     });
 }
 
 // === INITIALISATION AU CHARGEMENT DU DOM ===
-window.addEventListener('DOMContentLoaded', function () {
+
     // ATTENDRE QUE LE DOM SOIT PRÊT
     window.addEventListener('DOMContentLoaded', function () {
         console.log("✓ DOM chargé");
@@ -81,6 +81,10 @@ window.addEventListener('DOMContentLoaded', function () {
 
             const createSection = document.getElementById('create-section');
             const addBookSection = document.getElementById('addBook');
+
+            if (createSection) createSection.style.display = 'block';
+            if (addBookSection) addBookSection.style.display = 'block';
+
             const reservationSection = document.getElementById("reservationSection");
             const reservationUserSection = document.getElementById("reservationUserSection");
 
@@ -321,7 +325,7 @@ window.addEventListener('DOMContentLoaded', function () {
             if (response.ok && data.success) {
                 // Afficher le résultat
                 document.querySelector(".recommended-title").textContent =
-                    `📖 ${data.recommendation.title}`;
+                    ` ${data.recommendation.title}`;
                 document.querySelector(".recommendation-reason").textContent =
                     data.recommendation.reason;
 
@@ -375,55 +379,41 @@ window.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // === AFFICHER TOUS LES LIVRES ===
-    if (booksList) {
-        booksList.addEventListener("click", async () => {
-            try {
+    
+if (availableBtn) {
+    availableBtn.addEventListener("click", async () => {
+        try {
+            if (bookWrapper) {
+                bookWrapper.innerHTML = "";
                 bookWrapper.style.display = "block";
-                const books = await getAllBooks();
-                if (bookWrapper) {
-                    bookWrapper.textContent = "";
-                    await displayBook(books);
-                }
-            } catch (error) {
-                console.error("Erreur:", error);
-                alert("Impossible de récupérer la liste des livres");
             }
-        });
-    }
 
-    // === LIVRES DISPONIBLES ===
-    if (availableBtn) {
-        availableBtn.addEventListener("click", async () => {
-            try {
-                const response = await fetch(`${API_URL}/book/available/true`, {
-                    method: "GET",
-                    headers: {
-                        'Content-type': "application/json"
-                    }
-                });
-
-                if (!response.ok) {
-                    throw new Error("Erreur lors de la recherche");
+            const response = await fetch(`${API_URL}/books/availables`, {
+                method: "GET",
+                headers: {
+                    'Content-type': "application/json"
                 }
+            });
 
-                const books = await response.json();
-
-                if (bookWrapper) {
-                    bookWrapper.textContent = "";
-                    if (books.length === 0) {
-                        alert("Aucun livre disponible pour le moment");
-                    } else {
-                        displayBook(books);
-                    }
-                }
-            } catch (error) {
-                console.error("Erreur:", error);
-                alert("Erreur de connexion au serveur");
+            if (!response.ok) {
+                throw new Error("Erreur lors de la récupération des livres disponibles");
             }
-        });
-    }
 
+            const data = await response.json();
+            
+            if (data.ok && data.books.length > 0) {
+                displayBook(data.books);
+            } else {
+                alert("Aucun livre disponible pour le moment");
+            }
+        } catch (error) {
+            console.error("Erreur:", error);
+            alert("Erreur de connexion au serveur");
+        }
+    });
+}
+
+    
     // === FONCTIONS API ===
     async function addBook(title, author, publicationDate) {
         try {
@@ -709,4 +699,3 @@ window.addEventListener('DOMContentLoaded', function () {
             alert("Erreur de connexion au serveur");
         }
     }
-})
