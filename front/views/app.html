@@ -18,10 +18,12 @@
     </header>
 
     <main>
+
         <section id="create-section" style="display: none;">
             <h2>Section Admin - Gestion avancée</h2>
             <p>Vous êtes administrateur. Vous avez accès à toutes les fonctionnalités.</p>
         </section>
+
 
         <section id="addBook" style="display: none;">
             <h3>Ajouter un livre</h3>
@@ -33,16 +35,57 @@
             </form>
         </section>
 
-        <section id="filterSearch">
-            <h3>Rechercher des livres</h3>
-            <input id="titleSearch" placeholder="Titre recherché" type="text">
-            <input id="authorSearch" placeholder="Auteur recherché" type="text">
-            <input id="dateSearch" placeholder="Année de publication recherchée..." type="number" min="1000" max="2100">
-            <button class="btn-toggle" id="filterConfirm">Confirmer les filtres de recherche</button>
-            <button class="btn-toggle" id="availableSearch">Afficher les livres disponibles maintenant</button>
-            <button class="btn-toggle" id="booksListConfirm">Liste de tous les livres</button>
-            <button class="btn-toggle btn-recommendation" id="btnRecommendation">Obtenir une recommandation IA</button>
+        <section id="reservationSection" style="display: none;">
+            <h3>Réservations</h3>
+
+            <div class="reservations-control">
+                <button type="button" class="btn-toggle" id="btnReservationActive">Réservations en cours</button>
+                <button type="button" class="btn-toggle" id="btnAllReservations">Toutes les réservations</button>
+            </div>
+
+            <div id="reservations" class="reservations"></div>
         </section>
+
+        <section id="reservationUserSection">
+            <h3>Faire une réservation</h3>
+            <form id="reservationForm">
+                <select id="selectBookId" name="selectBookId" required>
+                    <option value="">Choisir un livre disponible</option>
+                </select>
+                <input name="reservationStartDate" type="date" id="reservationStartDate" required>
+                <br>
+                <input name="reservationEndDate" type="date" id="reservationEndDate" required>
+                <br>
+                <button type="submit" class="btn-toggle">
+                    Faire une réservation
+                </button>
+            </form>
+
+            <div id="reservationMessage"></div>
+        </section>
+
+
+        <section name="filterSearch" id="filterSearch">
+            <h3>Rechercher des livres</h3>
+            <div id="form">
+                <input name="titleSearch" id="titleSearch" placeholder="Titre recherché" type="text">
+                <br>
+                <input name="authorSearch" id="authorSearch" placeholder="Auteur recherché" type="text">
+                <br>
+                <input name="dateSearch" id="dateSearch" placeholder="Année de publication recherchée..." type="number"
+                    min="1000" max="2100">
+                <br>
+                <button name="filterConfirm" class="btn-toggle" id="filterConfirm">Confirmer les filtres de
+                    recherche</button>
+                <br>
+                <button name="availableSearch" class="btn-toggle" id="availableSearch">Afficher les livres disponibles
+                    maintenant</button>
+                <br>
+                <button name="booksListConfirm" class="btn-toggle" id="booksListConfirm">Liste de tous les
+                    livres</button>
+            </div>
+        </section>
+
 
         <div id="books"></div>
     </main>
@@ -142,6 +185,7 @@
     </div>
 
     <script src="../js/script.js"></script>
+    <script src="../js/reservation.js"></script>
 </body>
 
 </html>

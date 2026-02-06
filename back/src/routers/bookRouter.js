@@ -3,12 +3,13 @@ import {
     addBook, 
     getAllBooks, 
     getAvailableBook, 
+    getBorrowableBooks,
     getBookByAuthor, 
     getBookByDate, 
     getBookByTitle,
     deleteBook,
     updateBook,
-    getBookById
+    getBookById,
 } from "../controllers/bookController.js";
 import LoginController from "../controllers/loginController.js";
 
@@ -23,5 +24,6 @@ bookRouter.get("/book/title/:title", getBookByTitle);
 bookRouter.get("/book/author/:author", getBookByAuthor);
 bookRouter.get("/book/publicDate/:publicDate", getBookByDate);
 bookRouter.get("/book/available/:available", getAvailableBook);
+bookRouter.get("/books/availables", getBorrowableBooks);
 // Route générique EN DERNIER
 bookRouter.get("/book/:id", getBookById);

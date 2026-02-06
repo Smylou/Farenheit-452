@@ -11,6 +11,7 @@ import cors from "cors";
 import loginRouter from "./src/routers/loginRouter.js";  
 import { bookRouter } from "./src/routers/bookRouter.js"; 
 import registerRouter from "./src/routers/registerRouter.js";
+import reservationRouter from './src/routers/reservationRouter.js';
 import recommendationRouter from './src/routers/recommendationRouter.js';
 
 
@@ -27,6 +28,7 @@ app.use(express.json());
 app.use("/api", loginRouter);    
 app.use("/api", bookRouter);    
 app.use("/api", registerRouter);
+app.use("/api", reservationRouter);
 app.use('/api', recommendationRouter);   
 
 const PORT = process.env.PORT || 3000;
